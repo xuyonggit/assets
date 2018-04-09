@@ -1,0 +1,50 @@
+﻿{% extends "mainer.html" %}
+{% block menu %}
+<nav class="navbar-default navbar-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav" id="main-menu">
+                    <li>
+                        <a class="active-menu" href="index.html"><i class="fa fa-dashboard"></i> 固定资产概况 </a>
+                    </li>
+                    <li>
+                        <a href="show_assets"><i class="fa fa-table"></i> 总资产 </a>
+                    </li>
+                    <li>
+                        <a href="form.html"><i class="fa fa-edit"></i> 表单 </a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-sitemap"></i>资产变更 <span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="#">资产出库</a>
+                            </li>
+                            <li>
+                                <a href="#">资产入库</a>
+                            </li>
+                            <li>
+                                <a href="#">资产盘查<span class="fa arrow"></span></a>
+                                <ul class="nav nav-third-level">
+                                    <li>
+                                        <a href="#">概况</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">出库查询</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">入库查询</a>
+                                    </li>
+
+                                </ul>
+
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+{% endblock %}
+{% block data %}
+<div id="page-inner">
+    固定资产概况页面
+</div>
+{% endblock %}
