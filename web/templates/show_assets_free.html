@@ -10,10 +10,10 @@
                         <a class="active-menu"><i class="fa fa-table"></i> 总资产 <span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a class="active-menu" href="/assets/show_assets">所有资产</a>
+                                <a href="/assets/show_assets">所有资产</a>
                             </li>
                             <li>
-                                <a href="/assets/show_assets_free">库存</a>
+                                <a class="active-menu" href="/assets/show_assets_free">库存</a>
                             </li>
                             <li>
                                 <a href="/assets/show_assets_used">使用中</a>
@@ -53,6 +53,6 @@
 {% endblock %}
 {% block data %}
 <div id="page-inner">
-    <table id="show_assets"></table>
+    <table id="show_assets_free"></table>
 </div>
 {% endblock %}

@@ -14,3 +14,16 @@ class Asset(models.Model):
 
     def __unicode__(self):
         return self.assets_id, self.assets_brand, self.assets_version
+
+
+class Asset_detial(models.Model):
+    id = models.AutoField(primary_key=True)  # 序号
+    assets_id = models.CharField(max_length=255, default=None)  # 资产编号
+    create_date = models.DateField(default=None)    # 创建日期
+    create_type = models.CharField(max_length=255, default=None)    # 类型
+    use_department = models.CharField(max_length=255, default=None)     # 使用部门
+    use_people = models.CharField(max_length=255, default=None)     # 使用人
+    asset_status = models.IntegerField(default=0)     # 资产状态：0:未知 1:使用中 2:闲置中
+
+    def __unicode__(self):
+        return self.assets_id, self.asset_status
