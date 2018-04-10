@@ -3,8 +3,9 @@
  */
 $(function(){
     $('#show_assets').bootstrapTable({
-        url: "/assets/show_table",         //请求后台的URL（*）
-        //contentType : "application/x-www-form-urlencoded",
+        method: 'post',
+        url: "/assets/show_assets/",         //请求后台的URL（*）
+        contentType : "application/x-www-form-urlencoded",
         cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
         //detailView:true,            //详情展示
         //sidePagination: "server",
@@ -43,8 +44,9 @@ $(function(){
         ]
     });
     $('#show_assets_free').bootstrapTable({
-        url: "/assets/show_table_free",         //请求后台的URL（*）
-        //contentType : "application/x-www-form-urlencoded",
+        method: 'post',
+        url: "/assets/show_assets_free/",         //请求后台的URL（*）
+        contentType : "application/x-www-form-urlencoded",
         cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
         //detailView:true,            //详情展示
         //sidePagination: "server",
@@ -70,8 +72,9 @@ $(function(){
         ]
     });
     $('#show_assets_used').bootstrapTable({
-        url: "/assets/show_table_used",         //请求后台的URL（*）
-        //contentType : "application/x-www-form-urlencoded",
+        method: 'post',
+        url: "/assets/show_assets_used/",         //请求后台的URL（*）
+        contentType : "application/x-www-form-urlencoded",
         cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
         //detailView:true,            //详情展示
         //sidePagination: "server",

@@ -20,11 +20,7 @@ from . import views
 urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^index.html$', views.index, name='index'),
-    url(r'^show_assets/', views.show_assets, name='show_assets'),
-    url(r'^show_assets_free/', views.show_assets_free, name='show_assets_free'),
-    url(r'^show_assets_used/', views.show_assets_used, name='show_assets_used'),
-    url(r'^show_table/', views.show_table, name='show_table'),
-    url(r'^show_table_free/', views.show_table_free, name='show_table_free'),
-    url(r'^show_table_used/', views.show_table_used, name='show_table_used'),
-    url(r'^admin/', admin.site.urls),
+    url(r'^show_assets_free/$', views.show_assets_free, name='show_assets_free'),
+    url(r'^show_assets_used/$', views.show_assets_used, name='show_assets_used'),
+    url(r'^show_assets/$', views.show_assets, name='show_assets'),
 ]
