@@ -23,7 +23,7 @@ def show_assets(request):
             data['buying_price'] = float(data['buying_price'])
             if data['buying_date'] != None:
                 if type(data['buying_date']) == str:
-                    data['buying_date'] = datetime.date.strftime(data['buying_date'], '%Y-%m-%d')
+                    del data['buying_date']
                 else:
                     data['buying_date'] = data['buying_date'].strftime('%Y-%m-%d')
             Temp_data.append(data)
@@ -41,7 +41,7 @@ def show_assets_free(request):
             data['buying_price'] = float(data['buying_price'])
             if data['buying_date'] != None:
                 if type(data['buying_date']) == str:
-                    data['buying_date'] = datetime.date.strftime(data['buying_date'], '%Y-%m-%d')
+                    del data['buying_date']
                 else:
                     data['buying_date'] = data['buying_date'].strftime('%Y-%m-%d')
             if data['asset_status'] == 2:
@@ -60,7 +60,7 @@ def show_assets_used(request):
             data['buying_price'] = float(data['buying_price'])
             if data['buying_date'] != None:
                 if type(data['buying_date']) == str:
-                    data['buying_date'] = datetime.date.strftime(data['buying_date'], '%Y-%m-%d')
+                    del data['buying_date']
                 else:
                     data['buying_date'] = data['buying_date'].strftime('%Y-%m-%d')
             if data['asset_status'] == 1:
