@@ -37,7 +37,12 @@ def show_table(request):
     for data in J_data.values():
         data['buying_price'] = float(data['buying_price'])
         if data['buying_date'] != None:
-            data['buying_date'] = datetime.date.strftime(data['buying_date'], '%Y-%m-%d')
+            if type(data['buying_date']) == 'str':
+                data['buying_date'] = datetime.date.strftime(data['buying_date'], '%Y-%m-%d')
+            elif type(data['buying_date']) == 'datetime.date':
+                data['buying_date'] = data['buying_date'].strftime('%Y-%m-%d')
+            else:
+                data['buying_date'] = 'None'
         Temp_data.append(data)
     return HttpResponse({json.dumps(Temp_data)})
 
@@ -50,7 +55,12 @@ def show_table_free(request):
     for data in J_data.values():
         data['buying_price'] = float(data['buying_price'])
         if data['buying_date'] != None:
-            data['buying_date'] = datetime.date.strftime(data['buying_date'], '%Y-%m-%d')
+            if type(data['buying_date']) == 'str':
+                data['buying_date'] = datetime.date.strftime(data['buying_date'], '%Y-%m-%d')
+            elif type(data['buying_date']) == 'datetime.date':
+                data['buying_date'] = data['buying_date'].strftime('%Y-%m-%d')
+            else:
+                data['buying_date'] = 'None'
         if data['asset_status'] == 2:
             Temp_data.append(data)
     return HttpResponse({json.dumps(Temp_data)})
@@ -64,8 +74,12 @@ def show_table_used(request):
     for data in J_data.values():
         data['buying_price'] = float(data['buying_price'])
         if data['buying_date'] != None:
-            data['buying_date'] = datetime.date.strftime(data['buying_date'], '%Y-%m-%d')
-        asset_status = models.Asset_detial.objects.filter(assets_id=data['assets_id']).order_by("-create_date")[:1]
+            if type(data['buying_date']) == 'str':
+                data['buying_date'] = datetime.date.strftime(data['buying_date'], '%Y-%m-%d')
+            elif type(data['buying_date']) == 'datetime.date':
+                data['buying_date'] = data['buying_date'].strftime('%Y-%m-%d')
+            else:
+                data['buying_date'] = 'None'
         if data['asset_status'] == 1:
             Temp_data.append(data)
     return HttpResponse({json.dumps(Temp_data)})
