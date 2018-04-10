@@ -7,10 +7,11 @@ class Asset(models.Model):
     assets_id = models.CharField(max_length=255, default=None)  # 资产编号
     assets_name = models.CharField(max_length=255, default=None)    # 资产名称
     assets_brand = models.CharField(max_length=255, default=None)   # 品牌
-    assets_version = models.CharField(max_length=255, default=None) # 型号
+    assets_version = models.CharField(max_length=255, default=None)     # 型号
     buying_price = models.DecimalField(max_digits=8, decimal_places=2, default=0)      # 购买价格
     buying_date = models.DateField(default=None)        # 购买日期
     notes = models.CharField(max_length=1024, default=None)     # 备注
+    asset_status = models.IntegerField(default=0)  # 资产状态：0:未知 1:使用中 2:闲置中
 
     def __unicode__(self):
         return self.assets_id, self.assets_brand, self.assets_version
@@ -23,7 +24,6 @@ class Asset_detial(models.Model):
     create_type = models.CharField(max_length=255, default=None)    # 类型
     use_department = models.CharField(max_length=255, default=None)     # 使用部门
     use_people = models.CharField(max_length=255, default=None)     # 使用人
-    asset_status = models.IntegerField(default=0)     # 资产状态：0:未知 1:使用中 2:闲置中
 
     def __unicode__(self):
         return self.assets_id, self.asset_status

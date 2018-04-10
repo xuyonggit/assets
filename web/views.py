@@ -29,6 +29,7 @@ def show_assets_used(request):
     return render(request, 'show_assets_used.html')
 
 
+# 获取所有资产
 @csrf_exempt
 def show_table(request):
     Temp_data = []
@@ -37,13 +38,11 @@ def show_table(request):
         data['buying_price'] = float(data['buying_price'])
         if data['buying_date'] != None:
             data['buying_date'] = datetime.date.strftime(data['buying_date'], '%Y-%m-%d')
-        asset_status = models.Asset_detial.objects.filter(assets_id=data['assets_id']).order_by("-create_date")[:1]
-        if len(asset_status.values()) > 0:
-            data['asset_status'] = asset_status.values("asset_status")[0]['asset_status']
         Temp_data.append(data)
     return HttpResponse({json.dumps(Temp_data)})
 
 
+# 获取库存中的资产
 @csrf_exempt
 def show_table_free(request):
     Temp_data = []
@@ -52,13 +51,12 @@ def show_table_free(request):
         data['buying_price'] = float(data['buying_price'])
         if data['buying_date'] != None:
             data['buying_date'] = datetime.date.strftime(data['buying_date'], '%Y-%m-%d')
-        asset_status = models.Asset_detial.objects.filter(assets_id=data['assets_id']).order_by("-create_date")[:1]
-        if len(asset_status.values()) > 0:
-            if asset_status.values("asset_status")[0]['asset_status'] == 2:
-                Temp_data.append(data)
+        if data['asset_status'] == 2:
+            Temp_data.append(data)
     return HttpResponse({json.dumps(Temp_data)})
 
 
+# 获取使用中的资产
 @csrf_exempt
 def show_table_used(request):
     Temp_data = []
@@ -68,7 +66,6 @@ def show_table_used(request):
         if data['buying_date'] != None:
             data['buying_date'] = datetime.date.strftime(data['buying_date'], '%Y-%m-%d')
         asset_status = models.Asset_detial.objects.filter(assets_id=data['assets_id']).order_by("-create_date")[:1]
-        if len(asset_status.values()) > 0:
-            if asset_status.values("asset_status")[0]['asset_status'] == 1:
-                Temp_data.append(data)
+        if data['asset_status'] == 1:
+            Temp_data.append(data)
     return HttpResponse({json.dumps(Temp_data)})
