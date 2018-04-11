@@ -5,6 +5,7 @@ class In_repo(forms.Form):
     asset_id = forms.CharField(
         label='设备ID',
         widget=forms.TextInput(attrs={'class': 'form-control'}),
+
     )
     create_date = forms.DateField(
         label='归还日期',

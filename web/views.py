@@ -139,5 +139,5 @@ def Out_assets_repo(request):
         else:
             return HttpResponse({json.dumps({'status': 1})})
     else:
-        form = forms.In_repo()
+        form = forms.Out_repo()
         return render(request, 'Out_assets_repo.html', {'form': form})
