@@ -99,6 +99,62 @@ $(function(){
             {field: 'buying_date', title: '购买日期', sortable: true},
         ]
     });
+    $('#from_inrepo').on('submit', function (event) {
+        // 阻止元素发生默认的行为，此处用来阻止对表单的提交
+        event.preventDefault();
+        var formData = $('#from_inrepo').serialize();
+        // jQuery Ajax 上传文件，关键在于设置：processData 和 contentType
+        $.ajax({
+            type: 'POST',
+            url: '/assets/in_assets_repo/',
+            cache: false,
+            data: formData,
+            // 告诉 jQuery 不要去处理发送的数据
+            processData: false,
+            dataType:'json',
+            // 告诉 jQuery 不要去设置 Content-Type 请求头
+            // 因为这里是由 <form> 表单构造的 FormData 对象，且已经声明了属性 enctype="multipart/form-data"，所以设置为 false
+            contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+        }).done(function (res) {
+            var data = res.status;
+            if (data==0){
+                var txt="<h1>入库成功！</h1>";
+                window.wxc.xcConfirm(txt,window.wxc.xcConfirm.typeEnum.success);
+            }else if (data==1){
+                var txt="<h1>入库失败！</h1>";
+                window.wxc.xcConfirm(txt,window.wxc.xcConfirm.typeEnum.error);
+                return false;
+            }
+        })
+    });
+    $('#from_outrepo').on('submit', function (event) {
+        // 阻止元素发生默认的行为，此处用来阻止对表单的提交
+        event.preventDefault();
+        var formData = $('#from_inrepo').serialize();
+        // jQuery Ajax 上传文件，关键在于设置：processData 和 contentType
+        $.ajax({
+            type: 'POST',
+            url: '/assets/out_assets_repo/',
+            cache: false,
+            data: formData,
+            // 告诉 jQuery 不要去处理发送的数据
+            processData: false,
+            dataType:'json',
+            // 告诉 jQuery 不要去设置 Content-Type 请求头
+            // 因为这里是由 <form> 表单构造的 FormData 对象，且已经声明了属性 enctype="multipart/form-data"，所以设置为 false
+            contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+        }).done(function (res) {
+            var data = res.status;
+            if (data==0){
+                var txt="<h1>出库成功！</h1>";
+                window.wxc.xcConfirm(txt,window.wxc.xcConfirm.typeEnum.success);
+            }else if (data==1){
+                var txt="<h1>出库失败！</h1>";
+                window.wxc.xcConfirm(txt,window.wxc.xcConfirm.typeEnum.error);
+                return false;
+            }
+        })
+    });
     $(".panel-heading").click(function(e){
                 /*切换折叠指示图标*/
                 $(this).find("span").toggleClass("glyphicon-chevron-down");
