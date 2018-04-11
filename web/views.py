@@ -24,7 +24,7 @@ def show_assets(request):
         for data in J_data.values():
             data['buying_price'] = float(data['buying_price'])
             if data['buying_date'] != None:
-                if type(data['buying_date']) == str:
+                if type(data['buying_date']) == str or data['buying_date'] == '1997-01-01':
                     del data['buying_date']
                 else:
                     data['buying_date'] = data['buying_date'].strftime('%Y-%m-%d')
@@ -42,7 +42,7 @@ def show_assets_free(request):
         for data in J_data.values():
             data['buying_price'] = float(data['buying_price'])
             if data['buying_date'] != None:
-                if type(data['buying_date']) == str:
+                if type(data['buying_date']) == str or data['buying_date'] == '1997-01-01':
                     del data['buying_date']
                 else:
                     data['buying_date'] = data['buying_date'].strftime('%Y-%m-%d')
@@ -61,7 +61,7 @@ def show_assets_used(request):
         for data in J_data.values():
             data['buying_price'] = float(data['buying_price'])
             if data['buying_date'] != None:
-                if type(data['buying_date']) == str:
+                if type(data['buying_date']) == str or data['buying_date'] == '1997-01-01':
                     del data['buying_date']
                 else:
                     data['buying_date'] = data['buying_date'].strftime('%Y-%m-%d')
