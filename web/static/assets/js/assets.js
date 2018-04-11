@@ -130,7 +130,7 @@ $(function(){
     $('#from_outrepo').on('submit', function (event) {
         // 阻止元素发生默认的行为，此处用来阻止对表单的提交
         event.preventDefault();
-        var formData = $('#from_inrepo').serialize();
+        var formData = $('#from_outrepo').serialize();
         // jQuery Ajax 上传文件，关键在于设置：processData 和 contentType
         $.ajax({
             type: 'POST',

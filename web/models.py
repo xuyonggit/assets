@@ -9,7 +9,7 @@ class Asset(models.Model):
     assets_brand = models.CharField(max_length=255, default=None)   # 品牌
     assets_version = models.CharField(max_length=255, default=None)     # 型号
     buying_price = models.DecimalField(max_digits=8, decimal_places=2, default=0)      # 购买价格
-    buying_date = models.DateField(default=None)        # 购买日期
+    buying_date = models.DateField(default='1997-01-01')        # 购买日期
     notes = models.CharField(max_length=1024, default=None)     # 备注
     asset_status = models.IntegerField(default=0)  # 资产状态：0:未知 1:使用中 2:闲置中
 
