@@ -68,7 +68,6 @@ def show_assets_used(request):
             data['buying_price'] = float(data['buying_price'])
             if data['buying_date'] != None:
                 if type(data['buying_date']) == str:
-                    print(data['buying_date'])
                     del data['buying_date']
                 else:
                     if data['buying_date'].strftime('%Y-%m-%d') == '1997-01-01':
