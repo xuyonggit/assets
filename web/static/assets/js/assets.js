@@ -118,13 +118,16 @@ $(function(){
         }).done(function (res) {
             var data = res.status;
             if (data==0){
-                var txt="<h1>入库成功！</h1>";
+                var txt="入库成功！";
                 window.wxc.xcConfirm(txt,window.wxc.xcConfirm.typeEnum.success);
             }else if (data==1){
-                var txt="<h1>入库失败！</h1>";
+                var txt="入库失败！";
                 window.wxc.xcConfirm(txt,window.wxc.xcConfirm.typeEnum.error);
             }else if (data==2){
                 var txt="入库失败！<br>该设备已在仓库中！";
+                window.wxc.xcConfirm(txt,window.wxc.xcConfirm.typeEnum.error);
+            }else if (data==3){
+                var txt="入库失败！<br>入库时间不能小于上次出库时间";
                 window.wxc.xcConfirm(txt,window.wxc.xcConfirm.typeEnum.error);
             }
         })
@@ -148,13 +151,16 @@ $(function(){
         }).done(function (res) {
             var data = res.status;
             if (data==0){
-                var txt="<h1>出库成功！</h1>";
+                var txt="出库成功！";
                 window.wxc.xcConfirm(txt,window.wxc.xcConfirm.typeEnum.success);
             }else if (data==1){
-                var txt="<h1>出库失败！</h1>";
+                var txt="出库失败！";
                 window.wxc.xcConfirm(txt,window.wxc.xcConfirm.typeEnum.error);
             }else if (data==2){
                 var txt="出库失败！<br>该设备已被其他人使用,如有疑问，请联系管理员";
+                window.wxc.xcConfirm(txt,window.wxc.xcConfirm.typeEnum.error);
+            }else if (data==3){
+                var txt="出库失败！<br>出库时间不能小于上次入库时间";
                 window.wxc.xcConfirm(txt,window.wxc.xcConfirm.typeEnum.error);
             }
         })

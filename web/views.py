@@ -96,6 +96,12 @@ def In_assets_repo(request):
             if status_data.asset_status == 2:
                 return HttpResponse({json.dumps({'status': 2})})
             else:
+                date_data = models.Asset_detial.objects.filter(assets_id=asset_id, create_type='入库').order_by(
+                    '-create_date')[:1]
+                if date_data:
+                    if datetime.datetime.strptime(str(create_date), '%Y-%m-%d') < datetime.datetime.strptime(
+                            str(date_data.values()[0]['create_date']), '%Y-%m-%d'):
+                        return HttpResponse({json.dumps({'status': 3})})
                 status_data.asset_status = 2
                 status_data.save()
 
@@ -131,6 +137,11 @@ def Out_assets_repo(request):
             if status_data.asset_status == 1:
                 return HttpResponse({json.dumps({'status': 2})})
             else:
+                date_data = models.Asset_detial.objects.filter(assets_id=asset_id, create_type='入库').order_by('-create_date')[:1]
+                if date_data:
+                    if datetime.datetime.strptime(str(create_date), '%Y-%m-%d') < datetime.datetime.strptime(
+                            str(date_data.values()[0]['create_date']), '%Y-%m-%d'):
+                        return HttpResponse({json.dumps({'status': 3})})
                 status_data.asset_status = 1
                 status_data.save()
                 # 写入出库数据
