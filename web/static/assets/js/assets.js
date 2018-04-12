@@ -170,4 +170,16 @@ $(function(){
                 $(this).find("span").toggleClass("glyphicon-chevron-down");
                 $(this).find("span").toggleClass("glyphicon-chevron-up");
     });
+    $("#get_info").bootstrapTable({
+        method: 'get',
+        url: window.location.href + '&type=onlygetdata',
+        contentType : "application/x-www-form-urlencoded",
+        cache: false,
+        columns:[
+            {field: 'id',title: '序号'},
+            {field: 'people', title: '责任人'},
+            {field: 'outdate',title: '借出时间'},
+            {field: 'indate', title: '归还时间'}
+        ]
+    })
 });

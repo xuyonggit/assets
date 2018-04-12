@@ -1,0 +1,83 @@
+﻿{% extends "mainer.html" %}
+{% block menu %}
+<nav class="navbar-default navbar-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav" id="main-menu">
+                    <li>
+                        <a href="/assets"><i class="fa fa-dashboard"></i> 固定资产概况 </a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-table"></i> 总资产 <span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="/assets/show_assets">所有资产</a>
+                            </li>
+                            <li>
+                                <a href="/assets/show_assets_free">库存</a>
+                            </li>
+                            <li>
+                                <a href="/assets/show_assets_used">使用中</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-edit"></i>资产变更 <span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="/assets/out_assets_repo">资产出库</a>
+                            </li>
+                            <li>
+                                <a href="/assets/in_assets_repo">资产入库</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-sitemap"></i>资产盘查<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="#">概况</a>
+                            </li>
+                            <li>
+                                <a href="#">出库查询</a>
+                            </li>
+                            <li>
+                                <a href="#">入库查询</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+{% endblock %}
+{% block data %}
+<p id="page-info"></p>
+    <div class="header">
+        <h1 class="page-header">
+            资产ID：{{ data.assets_id }}
+        </h1>
+    </div>
+    <div id="page-inner">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="col-lg-6">
+                            <p>资产名字：{{ data.assets_name }}</p>
+                            <p>资产品牌：{{ data.assets_brand }}</p>
+                            <p>资产型号：{{ data.assets_version }}</p>
+                            <p>购买日期：{{ data.buying_date }}</p>
+                            <p>购买价格：{{ data.buying_price }}</p>
+                            <p>当前状态：{{ data.asset_status }}</p>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h1>设备使用记录</h1>
+                        </div>
+                        <table id="get_info"></table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

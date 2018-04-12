@@ -25,4 +25,5 @@ urlpatterns = [
     url(r'^show_assets/$', views.show_assets, name='show_assets'),
     url(r'^in_assets_repo/$', views.In_assets_repo, name='In_assets_repo'),
     url(r'^out_assets_repo/$', views.Out_assets_repo, name='Out_assets_repo'),
+    url(r'^get_info/$', views.get_info, name='get_info'),
 ]
