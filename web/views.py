@@ -85,26 +85,30 @@ def show_assets_used(request):
 def In_assets_repo(request):
     if request.method == 'POST':
         form = forms.In_repo(request.POST)
-        print(request.POST)
         if form.is_valid():
             use_people = request.POST['use_people']
             asset_id = request.POST['asset_id']
             create_date = request.POST['create_date']
             use_department = request.POST['use_department']
             create_type = '入库'
-            # 写入出库数据
-            models.Asset_detial.objects.create(
-                use_people=use_people,
-                assets_id=asset_id,
-                create_date=create_date,
-                use_department=use_department,
-                create_type=create_type
-            )
             # 更新状态
             status_data = models.Asset.objects.get(assets_id=asset_id)
-            status_data.asset_status = 2
-            status_data.save()
-            return HttpResponse({json.dumps({'status': 0})})
+            if status_data.asset_status == 2:
+                return HttpResponse({json.dumps({'status': 2})})
+            else:
+                status_data.asset_status = 2
+                status_data.save()
+
+                # 写入出库数据
+                models.Asset_detial.objects.create(
+                    use_people=use_people,
+                    assets_id=asset_id,
+                    create_date=create_date,
+                    use_department=use_department,
+                    create_type=create_type
+                )
+
+                return HttpResponse({json.dumps({'status': 0})})
         else:
             return HttpResponse({json.dumps({'status': 1})})
     else:
@@ -116,26 +120,29 @@ def In_assets_repo(request):
 def Out_assets_repo(request):
     if request.method == 'POST':
         form = forms.Out_repo(request.POST)
-        print(request.POST)
         if form.is_valid():
             use_people = request.POST['use_people']
             asset_id = request.POST['asset_id']
             create_date = request.POST['create_date']
             use_department = request.POST['use_department']
             create_type = '出库'
-            # 写入出库数据
-            models.Asset_detial.objects.create(
-                use_people=use_people,
-                assets_id=asset_id,
-                create_date=create_date,
-                use_department=use_department,
-                create_type=create_type
-            )
             # 更新状态
             status_data = models.Asset.objects.get(assets_id=asset_id)
-            status_data.asset_status = 1
-            status_data.save()
-            return HttpResponse({json.dumps({'status': 0})})
+            if status_data.asset_status == 1:
+                return HttpResponse({json.dumps({'status': 2})})
+            else:
+                status_data.asset_status = 1
+                status_data.save()
+                # 写入出库数据
+                models.Asset_detial.objects.create(
+                    use_people=use_people,
+                    assets_id=asset_id,
+                    create_date=create_date,
+                    use_department=use_department,
+                    create_type=create_type
+                )
+
+                return HttpResponse({json.dumps({'status': 0})})
         else:
             return HttpResponse({json.dumps({'status': 1})})
     else:
