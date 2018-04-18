@@ -1,56 +1,7 @@
 ﻿{% extends "mainer.html" %}
-{% block menu %}
-<nav class="navbar-default navbar-side" role="navigation">
-            <div class="sidebar-collapse">
-                <ul class="nav" id="main-menu">
-                    <li>
-                        <a href="/assets"><i class="fa fa-dashboard"></i> 固定资产概况 </a>
-                    </li>
-                    <li>
-                        <a  href="#" class="active-menu"><i class="fa fa-table"></i> 总资产 <span class="fa arrow"></span></a>
-                        <ul class="nav nav-second-level">
-                            <li>
-                                <a href="/assets/show_assets">所有资产</a>
-                            </li>
-                            <li>
-                                <a class="active-menu" href="/assets/show_assets_free">库存</a>
-                            </li>
-                            <li>
-                                <a href="/assets/show_assets_used">使用中</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-edit"></i>资产变更 <span class="fa arrow"></span></a>
-                        <ul class="nav nav-second-level">
-                            <li>
-                                <a href="/assets/out_assets_repo">资产出库</a>
-                            </li>
-                            <li>
-                                <a href="/assets/in_assets_repo">资产入库</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-sitemap"></i>资产盘查<span class="fa arrow"></span></a>
-                        <ul class="nav nav-second-level">
-                            <li>
-                                <a href="#">概况</a>
-                            </li>
-                            <li>
-                                <a href="#">出库查询</a>
-                            </li>
-                            <li>
-                                <a href="#">入库查询</a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-{% endblock %}
 {% block data %}
 <div id="page-inner">
+    <h2 class="page-header">闲置资产页面</h2>
     <table id="show_assets_free"></table>
 </div>
 {% endblock %}

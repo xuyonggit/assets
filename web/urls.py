@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-from . import views
+from . import views, count
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
@@ -26,4 +26,5 @@ urlpatterns = [
     url(r'^in_assets_repo/$', views.In_assets_repo, name='In_assets_repo'),
     url(r'^out_assets_repo/$', views.Out_assets_repo, name='Out_assets_repo'),
     url(r'^get_info/$', views.get_info, name='get_info'),
+    url(r'^count/$', count.Info, name='Info'),
 ]
