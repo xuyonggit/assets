@@ -90,9 +90,11 @@ def show_assets_used(request):
 
 
 @csrf_exempt
-def In_assets_repo(request, aid=None):
-    if aid:
+def In_assets_repo(request, aid="", aid2=""):
+    if aid != "" and aid2 == "":
         ass_id = 'GT-{}'.format(aid)
+    elif aid != "" and aid2 != "":
+        ass_id = 'GT-{}-{}'.format(aid, aid2)
     if request.method == 'POST':
         form = forms.In_repo(request.POST)
         if form.is_valid():
@@ -139,9 +141,11 @@ def In_assets_repo(request, aid=None):
 
 
 @csrf_exempt
-def Out_assets_repo(request, aid=""):
-    if aid != "":
+def Out_assets_repo(request, aid="", aid2=""):
+    if aid != "" and aid2 == "":
         ass_id = 'GT-{}'.format(aid)
+    elif aid != "" and aid2 != "":
+        ass_id = 'GT-{}-{}'.format(aid, aid2)
     if request.method == 'POST':
         form = forms.Out_repo(request.POST)
         if form.is_valid():
