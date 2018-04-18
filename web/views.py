@@ -214,7 +214,7 @@ def get_info(request):
                     dic = {}
                 # 出库
                 elif i['create_type'] == '出库':
-                    dic['outdate'] = i['create_date'].strftime('%Y-%m-%d')
+                    dic['outdate'], dic['id'], dic['department'],  dic['people'] = i['create_date'].strftime('%Y-%m-%d'), id, i['use_department'], i['use_people']
                 # 入库
                 elif num != 0 and i['create_type'] == '入库':
                     dic['indate'] = i['create_date'].strftime('%Y-%m-%d')
