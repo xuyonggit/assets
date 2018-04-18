@@ -90,7 +90,9 @@ def show_assets_used(request):
 
 
 @csrf_exempt
-def In_assets_repo(request):
+def In_assets_repo(request, aid=None):
+    if aid:
+        ass_id = 'GT-{}'.format(aid)
     if request.method == 'POST':
         form = forms.In_repo(request.POST)
         if form.is_valid():
@@ -127,11 +129,16 @@ def In_assets_repo(request):
             return HttpResponse({json.dumps({'status': 1})})
     else:
         form = forms.In_repo()
-        return render(request, 'In_assets_repo.html', {'form': form})
+        datadic = {'form': form}
+        if ass_id:
+            datadic['ass_id'] = ass_id
+        return render(request, 'In_assets_repo.html', datadic)
 
 
 @csrf_exempt
-def Out_assets_repo(request):
+def Out_assets_repo(request, aid=None):
+    if aid:
+        ass_id = 'GT-{}'.format(aid)
     if request.method == 'POST':
         form = forms.Out_repo(request.POST)
         if form.is_valid():
@@ -166,7 +173,10 @@ def Out_assets_repo(request):
             return HttpResponse({json.dumps({'status': 1})})
     else:
         form = forms.Out_repo()
-        return render(request, 'Out_assets_repo.html', {'form': form})
+        datadic = {'form': form}
+        if ass_id:
+            datadic['ass_id'] = ass_id
+        return render(request, 'Out_assets_repo.html', datadic)
 
 
 # 详情查询
@@ -225,8 +235,12 @@ def get_info(request):
             # 处理状态
             if assets_data['asset_status'] == 1:
                 assets_data['asset_status'] = '使用中'
+                assets_data['edit'] = [{'入库': '/assets/in_assets_repo/{}'.format(assets_id)}]
             elif assets_data['asset_status'] == 2:
                 assets_data['asset_status'] = '仓库中'
+                assets_data['edit'] = [{'出库': '/assets/out_assets_repo/{}'.format(assets_id)}]
             else:
                 assets_data['asset_status'] = '未知'
+                assets_data['edit'] = [{'入库': '/assets/in_assets_repo/{}'.format(assets_id)}]
+                assets_data['edit'].append({'出库': '/assets/out_assets_repo/{}'.format(assets_id)})
             return render(request, 'get_info.html', {'data': assets_data})
