@@ -130,14 +130,17 @@ def In_assets_repo(request, aid=None):
     else:
         form = forms.In_repo()
         datadic = {'form': form}
-        if ass_id:
+        try:
             datadic['ass_id'] = ass_id
-        return render(request, 'In_assets_repo.html', datadic)
+        except UnboundLocalError as err:
+            pass
+        finally:
+            return render(request, 'In_assets_repo.html', datadic)
 
 
 @csrf_exempt
-def Out_assets_repo(request, aid=None):
-    if aid:
+def Out_assets_repo(request, aid=""):
+    if aid != "":
         ass_id = 'GT-{}'.format(aid)
     if request.method == 'POST':
         form = forms.Out_repo(request.POST)
@@ -174,9 +177,12 @@ def Out_assets_repo(request, aid=None):
     else:
         form = forms.Out_repo()
         datadic = {'form': form}
-        if ass_id:
+        try:
             datadic['ass_id'] = ass_id
-        return render(request, 'Out_assets_repo.html', datadic)
+        except UnboundLocalError as err:
+            pass
+        finally:
+            return render(request, 'In_assets_repo.html', datadic)
 
 
 # 详情查询
