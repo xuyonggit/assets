@@ -184,24 +184,24 @@ def get_info(request):
                 i = getdata.values()[num]
                 # 第一次即为入库的情况
                 if num == 0 and i['create_type'] == '入库':
-                    dic['id'], dic['people'], dic['indate'] = id, i['use_people'], i['create_date'].strftime(
+                    dic['id'], dic['department'], dic['people'], dic['indate'] = id, i['use_department'], i['use_people'], i['create_date'].strftime(
                         '%Y-%m-%d')
                     datalist.append(dic)
                     dic = {}
                     id += 1
                 # 最后一次为出库的情况
                 elif num == endindex and i['create_type'] == '出库':
-                    dic['id'], dic['people'], dic['outdate'] = id, i['use_people'], i['create_date'].strftime(
+                    dic['id'], dic['department'],  dic['people'], dic['outdate'] = id, i['use_department'], i['use_people'], i['create_date'].strftime(
                         '%Y-%m-%d')
                     id += 1
                     datalist.append(dic)
                     dic = {}
                 # 出库
                 elif i['create_type'] == '出库':
-                    dic['id'], dic['people'], dic['outdate'] = id, i['use_people'], i['create_date'].strftime('%Y-%m-%d')
+                    dic['outdate'] = i['create_date'].strftime('%Y-%m-%d')
                 # 入库
                 elif num != 0 and i['create_type'] == '入库':
-                    dic['id'], dic['indate'] = id, i['create_date'].strftime('%Y-%m-%d')
+                    dic['indate'] = i['create_date'].strftime('%Y-%m-%d')
                     id += 1
                     datalist.append(dic)
                     dic = {}

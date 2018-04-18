@@ -177,6 +177,7 @@ $(function(){
         cache: false,
         columns:[
             {field: 'id',title: '序号'},
+            {field: 'department', title: '使用部门'},
             {field: 'people', title: '责任人'},
             {field: 'outdate',title: '借出时间'},
             {field: 'indate', title: '归还时间'}
