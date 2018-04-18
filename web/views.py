@@ -186,7 +186,7 @@ def Out_assets_repo(request, aid="", aid2=""):
         except UnboundLocalError as err:
             pass
         finally:
-            return render(request, 'In_assets_repo.html', datadic)
+            return render(request, 'Out_assets_repo.html', datadic)
 
 
 # 详情查询
