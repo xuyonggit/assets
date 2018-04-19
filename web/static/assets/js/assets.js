@@ -183,4 +183,40 @@ $(function(){
             {field: 'indate', title: '归还时间'}
         ]
     })
+    $("#searchdata").on('submit', function (event) {
+        event.preventDefault();
+        var ff = $('#searchdata').serialize();
+        //$("#get_assets").bootstrapTable('refresh');
+        $.ajax({
+            type: 'post',
+            url: '/assets/count/',
+            cache: false,
+            data: ff,
+            // 告诉 jQuery 不要去处理发送的数据
+            processData: false,
+            dataType:'json',
+            // 告诉 jQuery 不要去设置 Content-Type 请求头
+            // 因为这里是由 <form> 表单构造的 FormData 对象，且已经声明了属性 enctype="multipart/form-data"，所以设置为 false
+            contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+        }).done(function (res) {
+            var status = res.status;
+            if(status==1){
+                document.getElementById("title").innerText="个人名下资产 - " + res.user;
+                var formdata2 = {'user': res.user};
+                console.log(formdata2);
+                $("#get_assets").bootstrapTable('destroy').bootstrapTable({
+                    method: 'post',
+                    url: '/assets/count/getdata/',
+                    queryParams: formdata2,
+                    contentType : "application/x-www-form-urlencoded",
+                    cache: false,
+                    columns:[
+                        {field: 'assets_name',title: '资产名称'},
+                        {field: 'assets_id',title: '资产编号'},
+                        {field: 'outdate',title: '借用时间'}
+                    ]
+                })
+            }
+        })
+    })
 });

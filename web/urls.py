@@ -31,4 +31,5 @@ urlpatterns = [
     url(r'^out_assets_repo/GT-(?P<aid>\d+)-(?P<aid2>\d+)/$', views.Out_assets_repo, name='Out_assets_repo'),
     url(r'^get_info/$', views.get_info, name='get_info'),
     url(r'^count/$', count.Info, name='Info'),
+    url(r'^count/getdata/$', count.Getdata, name='Getdata'),
 ]

@@ -1,0 +1,23 @@
+{% extends "mainer.html" %}
+{% block data %}
+
+<p id="page-info"></p>
+    <div id="page-inner">
+        <div class="input-group-btn">
+            <form id="searchdata" role="form" >
+                <div class="form-group input-group">
+                    <input name="user" type="text" class="form-control input-lg" placeholder="请输入员工姓名">
+                    <span class="input-group-btn">
+                        <button id="get_people_assets" type="submit" class="btn btn-warning input-lg">搜索</button>
+                    </span>
+                </div>
+            </form>
+        </div>
+    <div class="panel panel-default">
+        <div class="col-lg-6">
+            <p id="title">个人名下资产</p>
+        </div>
+        <table id="get_assets"></table>
+    </div>
+    </div>
+{% endblock %}
