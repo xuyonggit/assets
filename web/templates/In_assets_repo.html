@@ -12,6 +12,7 @@
                     <div class="panel-body">
                         <div class="col-lg-6">
                             <form id="from_inrepo" role="form">
+                            {% csrf_token %}
                                 <div class="form-group">
                                     {% for field in form %}
                                         {% if field.label == '设备ID' %}

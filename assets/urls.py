@@ -16,8 +16,16 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from web import urls as web_urls
+from web import account
+from django.contrib.auth.views import logout
+from django.views.generic import RedirectView
 
 urlpatterns = [
+    url(r'^accounts/login/$', account.userlogin, name='userlogin'),
+    url(r'^accounts/logout/$', logout, {'next_page': '/accounts/login/'}, name='userlogout'),
+    url(r'^accounts/changepassword/$', account.changepassword, name='changepassword'),
     url(r'^assets/', include(web_urls)),
     url(r'^admin/', admin.site.urls),
+    #favicon.ico
+    url(r'^favicon.ico$', RedirectView.as_view(url='/static/assets/images/core/favicon.png'))
 ]

@@ -2,6 +2,22 @@
  * Created by gintong on 2018-04-08.
  */
 $(function(){
+    $(document).ready(function() {
+        $("#mws-login-form form").validate({
+            rules: {
+                username: {required: true},
+                password: {required: true}
+            },
+            errorPlacement: function(error, element) {
+            },
+            invalidHandler: function(form, validator) {
+                if($.fn.effect) {
+                    $("#mws-login").effect("shake", {distance: 6, times: 2}, 35);
+                }
+            }
+        });
+
+    });
     $('#show_assets').bootstrapTable({
         method: 'post',
         url: "/assets/show_assets/",         //请求后台的URL（*）
@@ -201,8 +217,8 @@ $(function(){
         }).done(function (res) {
             var status = res.status;
             if(status==1){
-                document.getElementById("title").innerText="个人名下资产 - " + res.user;
-                var formdata2 = {'user': res.user};
+                document.getElementById("title").innerText="个人名下资产 - " + res.uname;
+                var formdata2 = {'uname': res.uname};
                 console.log(formdata2);
                 $("#get_assets").bootstrapTable('destroy').bootstrapTable({
                     method: 'post',
@@ -220,4 +236,27 @@ $(function(){
             }
         })
     })
+    //changepassword
+    $(document).ready(function() {
+        /*change password*/
+        if ($.fn.dialog) {
+            $("#change-password-dialog").dialog({
+                autoOpen: false,
+                title: "修改密码",
+                modal: true,
+                width: "350",
+                closeText: "hide",
+                buttons: {
+                    "确定": function (event, ui) {
+                        $('#change-password-form').submit();
+                    },
+                },
+            });
+        }
+
+        $("#change-password").bind("click", function (event) {
+            $("#change-password-dialog").dialog("open");
+            event.preventDefault();
+        });
+    });
 });

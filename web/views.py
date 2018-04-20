@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
-from django.views.decorators.csrf import csrf_exempt
 from django.http.response import HttpResponse
+from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_exempt
 from . import models
 from . import forms
 import json
@@ -10,12 +11,14 @@ from django.core.paginator import Paginator
 
 
 # Create your views here.
-@csrf_exempt
+@login_required
 def index(request):
-    return render(request, 'index.html')
+    username = request.user.username
+    return render(request, 'index.html', {'username': username})
 
 
 # 所有资产展示
+@login_required
 @csrf_exempt
 def show_assets(request):
     if request.method == 'POST':
@@ -40,6 +43,7 @@ def show_assets(request):
 
 
 # 闲置资产展示
+@login_required
 @csrf_exempt
 def show_assets_free(request):
     if request.method == 'POST':
@@ -64,6 +68,7 @@ def show_assets_free(request):
 
 
 # 使用中资产展示
+@login_required
 @csrf_exempt
 def show_assets_used(request):
     if request.method == 'POST':
@@ -88,7 +93,7 @@ def show_assets_used(request):
         return render(request, 'show_assets_used.html')
 
 
-@csrf_exempt
+@login_required
 def In_assets_repo(request, aid="", aid2=""):
     if aid != "" and aid2 == "":
         ass_id = 'GT-{}'.format(aid)
@@ -139,7 +144,7 @@ def In_assets_repo(request, aid="", aid2=""):
             return render(request, 'In_assets_repo.html', datadic)
 
 
-@csrf_exempt
+@login_required
 def Out_assets_repo(request, aid="", aid2=""):
     if aid != "" and aid2 == "":
         ass_id = 'GT-{}'.format(aid)
@@ -189,7 +194,7 @@ def Out_assets_repo(request, aid="", aid2=""):
 
 
 # 详情查询
-@csrf_exempt
+@login_required
 def get_info(request):
     if request.method == 'GET':
         assets_id = request.GET.get('assets_id', '')

@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
 from django.http.response import HttpResponse
+from django.contrib.auth.decorators import login_required
 from . import models
 from . import forms
 import json
@@ -9,21 +10,22 @@ import datetime
 from django.core.paginator import Paginator
 
 
-@csrf_exempt
+@login_required
 def Info(request):
     if request.method == 'POST':
-        user = request.POST.get('user', '')
-        datadic = {'user': user, 'status': 1}
+        uname = request.POST.get('uname', '')
+        datadic = {'uname': uname, 'status': 1}
         return HttpResponse(json.dumps(datadic))
     else:
         return render(request, 'count.html')
 
 
 @csrf_exempt
+@login_required
 def Getdata(request):
     if request.method == 'POST':
-        user = request.POST.get('user', '')
-        details = models.Asset_detial.objects.filter(use_people=user).order_by('create_date')
+        uname = request.POST.get('uname', '')
+        details = models.Asset_detial.objects.filter(use_people=uname).order_by('create_date')
         datalist = []
         data_dic = {}
         for res_data in details.values():
@@ -42,7 +44,7 @@ def Getdata(request):
                 if models.Asset.objects.values('asset_status').filter(assets_id=d)[0]['asset_status'] == 1:
                     data_d = {}
                     data_d['id'] = num
-                    data_d['user'], data_d['assets_id'], data_d['outdate'] = user,  '<a href="/assets/get_info?assets_id={}">{}</a>'.format(d, d), data_dic[d]['create_date']
+                    data_d['uname'], data_d['assets_id'], data_d['outdate'] = uname,  '<a href="/assets/get_info?assets_id={}">{}</a>'.format(d, d), data_dic[d]['create_date']
                     data_d['assets_name'] = models.Asset.objects.values('assets_name').filter(assets_id=d)[0]['assets_name']
                     datalist.append(data_d)
                     num += 1

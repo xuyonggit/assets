@@ -15,8 +15,8 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-from . import views, count
-
+from . import views, count, account
+from django.contrib.auth.views import logout
 urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^index.html$', views.index, name='index'),

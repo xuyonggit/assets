@@ -33,8 +33,12 @@
 
 		<div id="sideNav" href=""><i class="fa fa-caret-right"></i></div>
             </div>
-
             <ul class="nav navbar-top-links navbar-right">
+                {% if user.is_superuser %}
+                    <li class="dropdown" ><font color="#F09B22">你好管理员：{{ username }}</font></li>
+                {% else %}
+                    <li class="dropdown" ><font color="#F09B22">你好：{{ username }}</font>></li>
+                {% endif %}
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
                         <i class="fa fa-envelope fa-fw"></i> <i class="fa fa-caret-down"></i>
@@ -98,12 +102,16 @@
                         <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="#"><i class="fa fa-user fa-fw"></i> 用户中心</a>
+                        <li><a href="#"><i class="fa fa-user fa-fw"></i>用户中心</a>
                         </li>
+                        {% if user.is_superuser %}
+                        <li><a href="/admin"><i class="fa fa-user fa-fw"></i>后台中心</a>
+                        </li>
+                        {% endif %}
                         <li><a href="#"><i class="fa fa-gear fa-fw"></i> 设置</a>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="#"><i class="fa fa-sign-out fa-fw"></i> 登出</a>
+                        <li><a href="{% url "userlogout" %}"><i class="fa fa-sign-out fa-fw"></i> 登出</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -132,6 +140,7 @@
                             </li>
                         </ul>
                     </li>
+                    {% if user.is_superuser %}
                     <li>
                         <a href="#"><i class="fa fa-edit"></i>资产变更 <span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
@@ -143,6 +152,7 @@
                             </li>
                         </ul>
                     </li>
+                    {% endif %}
                     <li>
                         <a href="#"><i class="fa fa-sitemap"></i>资产盘查<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">

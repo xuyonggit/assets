@@ -17,18 +17,20 @@
                             <p>资产型号：{{ data.assets_version }}</p>
                             <p>购买日期：{{ data.buying_date }}</p>
                             <p>购买价格：{{ data.buying_price }}</p>
-                            <p>当前状态：{{ data.asset_status }}  
-                            {% for edit in data.edit %}
-                                {% for type,url in edit.items %}
-                                    {% if type == '入库' %}
-                                        <a href="{{ url }}" class="btn btn-success">{{ type }}</a>
-                                    {% elif type == '出库' %}
-                                        <a href="{{ url }}" class="btn btn-info">{{ type }}</a>
-                                    {% else %}
-                                        <br>
-                                    {% endif %}
+                            <p>当前状态：{{ data.asset_status }}
+                            {% if user.is_superuser %}
+                                {% for edit in data.edit %}
+                                    {% for type,url in edit.items %}
+                                        {% if type == '入库' %}
+                                            <a href="{{ url }}" class="btn btn-success">{{ type }}</a>
+                                        {% elif type == '出库' %}
+                                            <a href="{{ url }}" class="btn btn-info">{{ type }}</a>
+                                        {% else %}
+                                            <br>
+                                        {% endif %}
+                                    {% endfor %}
                                 {% endfor %}
-                            {% endfor %}
+                            {% endif %}
                             </p>
                         </div>
                     </div>
