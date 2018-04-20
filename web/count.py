@@ -12,12 +12,13 @@ from django.core.paginator import Paginator
 
 @login_required
 def Info(request):
+    username = request.user.username
     if request.method == 'POST':
         uname = request.POST.get('uname', '')
         datadic = {'uname': uname, 'status': 1}
         return HttpResponse(json.dumps(datadic))
     else:
-        return render(request, 'count.html')
+        return render(request, 'count.html', {'username': username})
 
 
 @csrf_exempt

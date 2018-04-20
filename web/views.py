@@ -21,6 +21,7 @@ def index(request):
 @login_required
 @csrf_exempt
 def show_assets(request):
+    username = request.user.username
     if request.method == 'POST':
         Temp_data = []
         J_data = models.Asset.objects.all()
@@ -39,13 +40,14 @@ def show_assets(request):
             Temp_data.append(data)
         return HttpResponse({json.dumps(Temp_data)})
     else:
-        return render(request, 'show_assets.html')
+        return render(request, 'show_assets.html', {'username': username})
 
 
 # 闲置资产展示
 @login_required
 @csrf_exempt
 def show_assets_free(request):
+    username = request.user.username
     if request.method == 'POST':
         Temp_data = []
         J_data = models.Asset.objects.all()
@@ -64,13 +66,14 @@ def show_assets_free(request):
                 Temp_data.append(data)
         return HttpResponse({json.dumps(Temp_data)})
     else:
-        return render(request, 'show_assets_free.html')
+        return render(request, 'show_assets_free.html', {'username': username})
 
 
 # 使用中资产展示
 @login_required
 @csrf_exempt
 def show_assets_used(request):
+    username = request.user.username
     if request.method == 'POST':
         Temp_data = []
         J_data = models.Asset.objects.all()
@@ -90,11 +93,12 @@ def show_assets_used(request):
                 Temp_data.append(data)
         return HttpResponse({json.dumps(Temp_data)})
     else:
-        return render(request, 'show_assets_used.html')
+        return render(request, 'show_assets_used.html', {'username': username})
 
 
 @login_required
 def In_assets_repo(request, aid="", aid2=""):
+    username = request.user.username
     if aid != "" and aid2 == "":
         ass_id = 'GT-{}'.format(aid)
     elif aid != "" and aid2 != "":
@@ -138,6 +142,7 @@ def In_assets_repo(request, aid="", aid2=""):
         datadic = {'form': form}
         try:
             datadic['ass_id'] = ass_id
+            datadic['username'] = username
         except UnboundLocalError as err:
             pass
         finally:
@@ -146,6 +151,7 @@ def In_assets_repo(request, aid="", aid2=""):
 
 @login_required
 def Out_assets_repo(request, aid="", aid2=""):
+    username = request.user.username
     if aid != "" and aid2 == "":
         ass_id = 'GT-{}'.format(aid)
     elif aid != "" and aid2 != "":
@@ -187,6 +193,7 @@ def Out_assets_repo(request, aid="", aid2=""):
         datadic = {'form': form}
         try:
             datadic['ass_id'] = ass_id
+            datadic['username'] = username
         except UnboundLocalError as err:
             pass
         finally:
@@ -196,6 +203,7 @@ def Out_assets_repo(request, aid="", aid2=""):
 # 详情查询
 @login_required
 def get_info(request):
+    username = request.user.username
     if request.method == 'GET':
         assets_id = request.GET.get('assets_id', '')
         if request.GET.get('type', '') == 'onlygetdata':
@@ -257,4 +265,4 @@ def get_info(request):
                 assets_data['asset_status'] = '未知'
                 assets_data['edit'] = [{'入库': '/assets/in_assets_repo/{}'.format(assets_id)}]
                 assets_data['edit'].append({'出库': '/assets/out_assets_repo/{}'.format(assets_id)})
-            return render(request, 'get_info.html', {'data': assets_data})
+            return render(request, 'get_info.html', {'data': assets_data, 'username': username})
