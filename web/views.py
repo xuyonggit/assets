@@ -108,7 +108,7 @@ def In_assets_repo(request, aid="", aid2=""):
             use_people = request.POST['use_people']
             asset_id = request.POST['asset_id']
             create_date = request.POST['create_date']
-            use_department = request.POST['use_department']
+            use_department = models.department.objects.get(id=request.POST['use_department'])
             create_type = '入库'
             # 更新状态
             status_data = models.Asset.objects.get(assets_id=asset_id)
@@ -160,7 +160,7 @@ def Out_assets_repo(request, aid="", aid2=""):
             use_people = request.POST['use_people']
             asset_id = request.POST['asset_id']
             create_date = request.POST['create_date']
-            use_department = request.POST['use_department']
+            use_department = models.department.objects.get(id=request.POST['use_department'])
             create_type = '出库'
             # 更新状态
             status_data = models.Asset.objects.get(assets_id=asset_id)

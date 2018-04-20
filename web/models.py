@@ -26,4 +26,11 @@ class Asset_detial(models.Model):
     use_people = models.CharField(max_length=255, default=None)     # 使用人
 
     def __unicode__(self):
-        return self.assets_id, self.asset_status
+        return self.assets_id
+
+
+class department(models.Model):
+    department_name = models.CharField(u'部门名称', max_length=255, null=False, default=None)
+
+    def __str__(self):
+        return self.department_name

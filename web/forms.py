@@ -1,6 +1,8 @@
 from django import forms
 from .field import UsernameField, PasswordField
 from django.contrib.auth import authenticate, login
+from . import models
+
 
 class In_repo(forms.Form):
     asset_id = forms.CharField(
@@ -12,9 +14,10 @@ class In_repo(forms.Form):
         label='归还日期',
         widget=forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
     )
-    use_department = forms.CharField(
+    use_department = forms.ModelChoiceField(
         label='归还部门',
-        widget=forms.TextInput(attrs={'class': 'form-control'}),
+        empty_label='请选择部门',
+        queryset=models.department.objects,
     )  # 使用部门
     use_people = forms.CharField(
         label='归还人',
@@ -31,9 +34,10 @@ class Out_repo(forms.Form):
         label='借用日期',
         widget=forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
     )
-    use_department = forms.CharField(
+    use_department = forms.ModelChoiceField(
         label='借用部门',
-        widget=forms.TextInput(attrs={'class': 'form-control'}),
+        empty_label='请选择部门',
+        queryset=models.department.objects,
     )  # 使用部门
     use_people = forms.CharField(
         label='借用人',
