@@ -15,7 +15,7 @@ def userlogin(request):
             return render(request, 'login.html', {'form': form})
     else:
         form = LoginForm()
-        if request.user.is_authenticated():
+        if request.user.is_authenticated:
             return HttpResponseRedirect('/assets')
         return render(request, 'login.html', {'form': form})
 
