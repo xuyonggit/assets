@@ -98,7 +98,6 @@ def show_assets_used(request):
 
 @login_required
 def In_assets_repo(request, aid="", aid2=""):
-    username = request.user.username
     if aid != "" and aid2 == "":
         ass_id = 'GT-{}'.format(aid)
     elif aid != "" and aid2 != "":
@@ -138,11 +137,11 @@ def In_assets_repo(request, aid="", aid2=""):
         else:
             return HttpResponse({json.dumps({'status': 1})})
     else:
+        username = request.user.username
         form = forms.In_repo()
-        datadic = {'form': form}
+        datadic = {'form': form, 'username': username}
         try:
             datadic['ass_id'] = ass_id
-            datadic['username'] = username
         except UnboundLocalError as err:
             pass
         finally:
@@ -151,7 +150,6 @@ def In_assets_repo(request, aid="", aid2=""):
 
 @login_required
 def Out_assets_repo(request, aid="", aid2=""):
-    username = request.user.username
     if aid != "" and aid2 == "":
         ass_id = 'GT-{}'.format(aid)
     elif aid != "" and aid2 != "":
@@ -190,10 +188,10 @@ def Out_assets_repo(request, aid="", aid2=""):
             return HttpResponse({json.dumps({'status': 1})})
     else:
         form = forms.Out_repo()
-        datadic = {'form': form}
+        username = request.user.username
+        datadic = {'form': form, 'username': username}
         try:
             datadic['ass_id'] = ass_id
-            datadic['username'] = username
         except UnboundLocalError as err:
             pass
         finally:
