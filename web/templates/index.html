@@ -1,6 +1,12 @@
 ﻿{% extends "mainer.html" %}
 {% block data %}
-<div id="page-inner">
-    <h1 class="page-header">固定资产概况页面</h1>
-</div>
+    <div class="page-header">
+        <h1 class="page-header">固定资产概况页面</h1>
+    </div>
+    <ol class="breadcrumb"><li></li></ol>
+    <div id="page-inner">
+        <div class="col-md-6 col-sm-12 col-xs-12">
+            <div id="echart" style="width: 600px;height:400px;border:1px solid; background-color: #fff"></div>
+        </div>
+    </div>
 {% endblock %}

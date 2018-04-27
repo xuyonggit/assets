@@ -11,7 +11,7 @@ class Asset(models.Model):
     buying_price = models.DecimalField(max_digits=8, decimal_places=2, default=0)      # 购买价格
     buying_date = models.DateField(default='1997-01-01')        # 购买日期
     notes = models.CharField(max_length=1024, default=None)     # 备注
-    asset_status = models.IntegerField(default=0)  # 资产状态：0:未知 1:使用中 2:闲置中
+    asset_status = models.IntegerField(default=0)  # 资产状态：0:未知 1:使用中 2:闲置中 3:故障中
 
     def __unicode__(self):
         return self.assets_id, self.assets_brand, self.assets_version
