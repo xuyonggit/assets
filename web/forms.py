@@ -25,6 +25,12 @@ class In_repo(forms.Form):
     )  # 使用人
 
 
+class In_repo2(forms.Form):
+    asset_id = forms.CharField(
+        label='设备ID',
+        widget=forms.TextInput(attrs={'class': 'form-control'}),
+    )
+
 class Out_repo(forms.Form):
     asset_id = forms.CharField(
         label='设备ID',

@@ -119,10 +119,45 @@ $(function(){
         // 阻止元素发生默认的行为，此处用来阻止对表单的提交
         event.preventDefault();
         var formData = $('#from_inrepo').serialize();
+        console.log(formData);
         // jQuery Ajax 上传文件，关键在于设置：processData 和 contentType
         $.ajax({
             type: 'POST',
             url: '/assets/in_assets_repo/',
+            cache: false,
+            data: formData,
+            // 告诉 jQuery 不要去处理发送的数据
+            processData: false,
+            dataType:'json',
+            // 告诉 jQuery 不要去设置 Content-Type 请求头
+            // 因为这里是由 <form> 表单构造的 FormData 对象，且已经声明了属性 enctype="multipart/form-data"，所以设置为 false
+            contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+        }).done(function (res) {
+            var data = res.status;
+            if (data==0){
+                var txt="入库成功！";
+                window.wxc.xcConfirm(txt,window.wxc.xcConfirm.typeEnum.success);
+            }else if (data==1){
+                var txt="入库失败！";
+                window.wxc.xcConfirm(txt,window.wxc.xcConfirm.typeEnum.error);
+            }else if (data==2){
+                var txt="入库失败！<br>该设备已在仓库中！";
+                window.wxc.xcConfirm(txt,window.wxc.xcConfirm.typeEnum.error);
+            }else if (data==3){
+                var txt="入库失败！<br>入库时间不能小于上次出库时间";
+                window.wxc.xcConfirm(txt,window.wxc.xcConfirm.typeEnum.error);
+            }
+        })
+    });
+    $('#from_inrepo2').on('submit', function (event) {
+        // 阻止元素发生默认的行为，此处用来阻止对表单的提交
+        event.preventDefault();
+        var formData = $('#from_inrepo2').serialize();
+        console.log(formData);
+        // jQuery Ajax 上传文件，关键在于设置：processData 和 contentType
+        $.ajax({
+            type: 'POST',
+            url: '/assets/in_repo/',
             cache: false,
             data: formData,
             // 告诉 jQuery 不要去处理发送的数据

@@ -149,6 +149,28 @@ def In_assets_repo(request, aid="", aid2=""):
 
 
 @login_required
+def In_repo(request):
+    if request.method == 'POST':
+        form = forms.In_repo2(request.POST)
+        if form.is_valid():
+            asset_id = 'GT-020' + str(request.POST['asset_id'])
+            # 更新状态
+            status_data = models.Asset.objects.get(assets_id=asset_id)
+            if status_data.asset_status == 2:
+                return HttpResponse({json.dumps({'status': 2})})
+            else:
+                status_data.asset_status = 2
+                status_data.save()
+                return HttpResponse({json.dumps({'status': 0})})
+        else:
+            return HttpResponse({json.dumps({'status': 1})})
+    else:
+        username = request.user.username
+        form = forms.In_repo2()
+        datadic = {'form': form, 'username': username}
+        return render(request, 'In_repo.html', datadic)
+
+@login_required
 def Out_assets_repo(request, aid="", aid2=""):
     if aid != "" and aid2 == "":
         ass_id = 'GT-{}'.format(aid)

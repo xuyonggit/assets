@@ -1,0 +1,42 @@
+{% extends "mainer.html" %}
+{% block data %}
+    <div class="header">
+        <h1 class="page-header">
+            资产入库登记
+        </h1>
+    </div>
+    <div id="page-inner">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="col-lg-6">
+                            <form id="from_inrepo2" role="form">
+                            {% csrf_token %}
+                                <div class="form-group">
+                                    {% for field in form %}
+                                        {% if field.label == '设备ID' %}
+                                            {% if ass_id %}
+                                                <label>设备ID</label><p>
+                                                <input name="asset_id" class="form-control" value="{{ ass_id }}" placeholder="{{ ass_id }}"><br>
+                                            {% else %}
+                                                <label>{{ field.label }}</label>
+                                                <p class="help-block">{{ field }}</p><br>
+                                                    {{ field.errors }}
+                                            {% endif %}
+                                        {% else %}
+                                            <label>{{ field.label }}</label>
+                                            <p class="help-block">{{ field }}</p><br>
+                                                {{ field.errors }}
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                            <input id="submit" type="submit" class="btn btn-default"value="提交">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

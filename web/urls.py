@@ -23,6 +23,7 @@ urlpatterns = [
     url(r'^show_assets_free/$', views.show_assets_free, name='show_assets_free'),
     url(r'^show_assets_used/$', views.show_assets_used, name='show_assets_used'),
     url(r'^show_assets/$', views.show_assets, name='show_assets'),
+    url(r'^in_repo/$', views.In_repo, name='In_repo'),
     url(r'^in_assets_repo/$', views.In_assets_repo, name='In_assets_repo'),
     url(r'^in_assets_repo/GT-(?P<aid>\d+)/$', views.In_assets_repo, name='In_assets_repo'),
     url(r'^in_assets_repo/GT-(?P<aid>\d+)-(?P<aid2>\d+)/$', views.In_assets_repo, name='In_assets_repo'),
