@@ -109,3 +109,33 @@ class ChangePasswordForm(forms.Form):
         if commit:
             self.user.save()
         return self.user
+
+
+class Trouble(forms.Form):
+    asset_id = forms.CharField(
+        label='设备ID',
+        widget=forms.TextInput(attrs={'class': 'form-control'}),
+    )
+    trouble_date = forms.DateField(
+        required=False,  # 默认输入可以为空
+        label='故障日期',
+        widget=forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
+    )
+    trouble_department = forms.ModelChoiceField(
+        required=False,     # 默认输入可以为空
+        label='损坏部门',
+        empty_label='请选择部门-不选则为空',
+        queryset=models.department.objects,
+    )
+    trouble_people = forms.CharField(
+        required=False,  # 默认输入可以为空
+        label='损坏人',
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': u'默认为空'}),
+    )
+    Troubles_info = forms.CharField(
+        required=False,
+        label=u'故障详情',
+        widget=forms.Textarea(
+            attrs={'class': 'form-control'}
+        )
+    )

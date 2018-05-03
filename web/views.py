@@ -7,7 +7,6 @@ from . import models
 from . import forms
 import json
 import datetime
-from django.core.paginator import Paginator
 
 
 # Create your views here.
@@ -113,14 +112,14 @@ def In_assets_repo(request, aid="", aid2=""):
             # 更新状态
             status_data = models.Asset.objects.get(assets_id=asset_id)
             if status_data.asset_status == 2:
-                return HttpResponse({json.dumps({'status': 2})})
+                return HttpResponse({json.dumps({'status': 2, 'errormessage': u'入库失败！<br>该设备已在仓库中！'})})
             else:
                 date_data = models.Asset_detial.objects.filter(assets_id=asset_id, create_type='入库').order_by(
                     '-create_date')[:1]
                 if date_data:
                     if datetime.datetime.strptime(str(create_date), '%Y-%m-%d') < datetime.datetime.strptime(
                             str(date_data.values()[0]['create_date']), '%Y-%m-%d'):
-                        return HttpResponse({json.dumps({'status': 3})})
+                        return HttpResponse({json.dumps({'status': 3, 'errormessage': u'入库失败！<br>入库时间不能小于上次出库时间'})})
                 status_data.asset_status = 2
                 status_data.save()
 
@@ -135,7 +134,7 @@ def In_assets_repo(request, aid="", aid2=""):
 
                 return HttpResponse({json.dumps({'status': 0})})
         else:
-            return HttpResponse({json.dumps({'status': 1})})
+            return HttpResponse({json.dumps({'status': 1, 'errormessage': u'入库失败！'})})
     else:
         username = request.user.username
         form = forms.In_repo()
@@ -170,6 +169,7 @@ def In_repo(request):
         datadic = {'form': form, 'username': username}
         return render(request, 'In_repo.html', datadic)
 
+
 @login_required
 def Out_assets_repo(request, aid="", aid2=""):
     if aid != "" and aid2 == "":
@@ -187,13 +187,13 @@ def Out_assets_repo(request, aid="", aid2=""):
             # 更新状态
             status_data = models.Asset.objects.get(assets_id=asset_id)
             if status_data.asset_status == 1:
-                return HttpResponse({json.dumps({'status': 2})})
+                return HttpResponse({json.dumps({'status': 2, 'errormessage': u'出库失败！<br>该设备已被其他人使用,如有疑问，请联系管理员'})})
             else:
                 date_data = models.Asset_detial.objects.filter(assets_id=asset_id, create_type='入库').order_by('-create_date')[:1]
                 if date_data:
                     if datetime.datetime.strptime(str(create_date), '%Y-%m-%d') < datetime.datetime.strptime(
                             str(date_data.values()[0]['create_date']), '%Y-%m-%d'):
-                        return HttpResponse({json.dumps({'status': 3})})
+                        return HttpResponse({json.dumps({'status': 3, 'errormessage': u'出库失败！<br>出库时间不能小于上次入库时间'})})
                 status_data.asset_status = 1
                 status_data.save()
                 # 写入出库数据
@@ -207,7 +207,7 @@ def Out_assets_repo(request, aid="", aid2=""):
 
                 return HttpResponse({json.dumps({'status': 0})})
         else:
-            return HttpResponse({json.dumps({'status': 1})})
+            return HttpResponse({json.dumps({'status': 1, 'errormessage': u'出库失败！'})})
     else:
         form = forms.Out_repo()
         username = request.user.username

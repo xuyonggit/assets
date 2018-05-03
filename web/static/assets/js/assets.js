@@ -171,14 +171,8 @@ $(function(){
             if (data==0){
                 var txt="入库成功！";
                 window.wxc.xcConfirm(txt,window.wxc.xcConfirm.typeEnum.success);
-            }else if (data==1){
-                var txt="入库失败！";
-                window.wxc.xcConfirm(txt,window.wxc.xcConfirm.typeEnum.error);
-            }else if (data==2){
-                var txt="入库失败！<br>该设备已在仓库中！";
-                window.wxc.xcConfirm(txt,window.wxc.xcConfirm.typeEnum.error);
-            }else if (data==3){
-                var txt="入库失败！<br>入库时间不能小于上次出库时间";
+            }else{
+                var txt=res.errormessage;
                 window.wxc.xcConfirm(txt,window.wxc.xcConfirm.typeEnum.error);
             }
         })
@@ -204,14 +198,8 @@ $(function(){
             if (data==0){
                 var txt="出库成功！";
                 window.wxc.xcConfirm(txt,window.wxc.xcConfirm.typeEnum.success);
-            }else if (data==1){
-                var txt="出库失败！";
-                window.wxc.xcConfirm(txt,window.wxc.xcConfirm.typeEnum.error);
-            }else if (data==2){
-                var txt="出库失败！<br>该设备已被其他人使用,如有疑问，请联系管理员";
-                window.wxc.xcConfirm(txt,window.wxc.xcConfirm.typeEnum.error);
-            }else if (data==3){
-                var txt="出库失败！<br>出库时间不能小于上次入库时间";
+            }else{
+                var txt=res.errormessage;
                 window.wxc.xcConfirm(txt,window.wxc.xcConfirm.typeEnum.error);
             }
         })
@@ -293,5 +281,63 @@ $(function(){
             $("#change-password-dialog").dialog("open");
             event.preventDefault();
         });
+    });
+    //故障展示
+    $('#show_assets_trouble').bootstrapTable({
+        method: 'post',
+        url: "/assets/show_assets_trouble/",         //请求后台的URL（*）
+        contentType : "application/x-www-form-urlencoded",
+        cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+        //detailView:true,            //详情展示
+        //sidePagination: "server",
+        showRefresh: true,           //刷新按钮
+        pageNumber: 1,                       //初始化加载第一页，默认第一页
+        pageSize: 30,                       //每页的记录行数（*）
+        pageList: [5, 10, 20, 50],            //可供选择的每页的行数（*）
+        search: true,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+        pagination: true,
+        clickToSelect: true,                //是否启用点击选中行
+        uniqueId: "assets_name",
+        showToggle: true,                    //是否显示详细视图和列表视图的切换按钮
+        cardView: false,                    //是否显示详细视图
+        detailView: false,                  //是否显示父子表
+        showColumns: true,                  //是否显示所有的列
+        columns: [{checkbox: true},
+            {field: 'assets_id', title: '资产ID', sortable: true},
+            {field: 'assets_name', title: '资产名', sortable: true},
+            {field: 'trouble_people', title: '责任人',sortable: true},
+            {field: 'buying_price', title: '购买价格', sortable: true},
+            {field: 'trouble_date', title: '损坏日期', sortable: true},
+            {field: 'trouble_info', title: '故障详情', sortable: true}
+        ]
+    });
+    //故障登记
+    $('#trouble_note').on('submit', function (event) {
+        // 阻止元素发生默认的行为，此处用来阻止对表单的提交
+        event.preventDefault();
+        var formData = $('#trouble_note').serialize();
+        console.log(formData);
+        // jQuery Ajax 上传文件，关键在于设置：processData 和 contentType
+        $.ajax({
+            type: 'POST',
+            url: '/assets/trouble/',
+            cache: false,
+            data: formData,
+            // 告诉 jQuery 不要去处理发送的数据
+            processData: false,
+            dataType:'json',
+            // 告诉 jQuery 不要去设置 Content-Type 请求头
+            // 因为这里是由 <form> 表单构造的 FormData 对象，且已经声明了属性 enctype="multipart/form-data"，所以设置为 false
+            contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+        }).done(function (res) {
+            var data = res.status;
+            if (data==0){
+                var txt="录入成功！";
+                window.wxc.xcConfirm(txt,window.wxc.xcConfirm.typeEnum.success);
+            }else{
+                txt = res.errormessage;
+                window.wxc.xcConfirm(txt,window.wxc.xcConfirm.typeEnum.error);
+            }
+        })
     });
 });

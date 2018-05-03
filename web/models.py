@@ -29,6 +29,19 @@ class Asset_detial(models.Model):
         return self.assets_id
 
 
+class Asset_trouble(models.Model):
+    id = models.AutoField(primary_key=True)  # 序号
+    assets_id = models.CharField(max_length=255, default=None)  # 资产编号
+    trouble_date = models.DateField(default=None)  # 故障日期
+    trouble_department = models.CharField(max_length=255, default=None)      # 损坏部门
+    trouble_people = models.CharField(max_length=255, default=None)     # 损坏人
+    trouble_info = models.CharField(max_length=4096, default=None)      # 故障详情
+    operator_user = models.CharField(max_length=255, default=None)      # 操作人
+
+    def __unicode__(self):
+        return self.assets_id
+
+
 class department(models.Model):
     department_name = models.CharField(u'部门名称', max_length=255, null=False, default=None)
 
