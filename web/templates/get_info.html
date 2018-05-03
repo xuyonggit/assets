@@ -17,6 +17,7 @@
                             <p>资产型号：{{ data.assets_version }}</p>
                             <p>购买日期：{{ data.buying_date }}</p>
                             <p>购买价格：{{ data.buying_price }}</p>
+                            <p>资产备注：{{ data.notes }}</p>
                             <p>当前状态：{{ data.asset_status }}
                             {% if user.is_superuser %}
                                 {% for edit in data.edit %}
