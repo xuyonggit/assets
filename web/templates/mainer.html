@@ -30,7 +30,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/assets/index.html"><strong>菜单栏</strong></a>
+                <a class="navbar-brand" href="{% url 'index' %}"><strong>菜单栏</strong></a>
 
 		<div id="sideNav" href=""><i class="fa fa-caret-right"></i></div>
             </div>
@@ -130,51 +130,29 @@
                     <li>
                         <a href="#"><i class="fa fa-table"></i> 总资产 <span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
-                            <li>
-                                <a href="/assets/show_assets">所有资产</a>
-                            </li>
-                            <li>
-                                <a href="/assets/show_assets_free">库存</a>
-                            </li>
-                            <li>
-                                <a href="/assets/show_assets_used">使用中</a>
-                            </li>
-                            <li>
-                                <a href="/assets/show_assets_trouble">故障设备</a>
-                            </li>
+                            <li><a href="{% url 'show_assets' %}">所有资产</a></li>
+                            <li><a href="{% url 'show_assets_free' %}">库存</a></li>
+                            <li><a href="{% url 'show_assets_used' %}">使用中</a></li>
+                            <li><a href="{% url 'show_assets_trouble' %}">故障设备</a></li>
                         </ul>
                     </li>
                     {% if user.is_superuser %}
                     <li>
                         <a href="#"><i class="fa fa-edit"></i>资产变更 <span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
-                            <li>
-                                <a href="/assets/out_assets_repo">资产出库</a>
-                            </li>
-                            <li>
-                                <a href="/assets/in_assets_repo">资产入库</a>
-                            </li>
-                            <li>
-                                <a href="/assets/in_repo">直接入库</a>
-                            </li>
-                            <li>
-                                <a href="/assets/trouble">故障登记</a>
-                            </li>
+                            <li><a href="{% url 'Out_assets_repo' %}">资产出库</a></li>
+                            <li><a href="{% url 'In_assets_repo' %}">资产入库</a></li>
+                            <li><a href="{% url 'In_repo' %}">直接入库</a></li>
+                            <li><a href="{% url 'trouble' %}">故障登记</a></li>
                         </ul>
                     </li>
                     {% endif %}
                     <li>
                         <a href="#"><i class="fa fa-sitemap"></i>资产盘查<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
-                            <li>
-                                <a href="#">概况</a>
-                            </li>
-                            <li>
-                                <a href="/assets/count">个人资产查询</a>
-                            </li>
-                            <li>
-                                <a href="#">其他查询</a>
-                            </li>
+                            <li><a href="#">概况</a></li>
+                            <li><a href="{% url 'Info' %}">个人资产查询</a></li>
+                            <li><a href="#">其他查询</a></li>
                         </ul>
                     </li>
                 </ul>

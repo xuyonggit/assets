@@ -7,7 +7,7 @@ $(function(){
         data: {},
         dataType: "json",
         beforeSend: function () {
-            myChart.showLoading();;
+            myChart.showLoading();
         }
         }).done(function (result) {
             var template = [];
@@ -69,4 +69,99 @@ $(function(){
         myChart.setOption(option);
         window.onresize = myChart.resize;
         })
+});
+$(function () {
+   var myChart = echarts.init(document.getElementById('echart2'));
+   $.ajax({
+        //提交数据的类型 POST GET
+        type: 'POST',
+        url: "/assets/echart/getdata2/",
+        data: {},
+        dataType: "json",
+        beforeSend: function () {
+            myChart.showLoading();
+        }
+   }).done(function (result) {
+       var template = [];
+       var used_list = [];
+       var free_list = [];
+       var trouble_list = [];
+       for (i=0;i<result.length;i++){
+           template.push(result[i]['name']);
+           used_list.push(result[i]['used_num']);
+           free_list.push(result[i]['free_num']);
+           trouble_list.push(result[i]['trouble_num'])
+            }
+       myChart.hideLoading();
+       var option = {
+           title: {
+                    text: '各种类别状态一览',
+                    x: 'center'
+                },
+           tooltip: {
+               trigger: 'axis',
+               axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                   type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+               }
+           },
+           legend: {
+               data: template
+           },
+           grid: {
+               left: '3%',
+               right: '4%',
+               bottom: '3%',
+               containLabel: true
+           },
+           yAxis: {
+               type: 'value'
+           },
+           xAxis: {
+               type: 'category',
+               data: template
+           },
+           series: [
+               {
+                   name: '使用中',
+                   color: '#4682B4',
+                   type: 'bar',
+                   stack: '总量',
+                   label: {
+                       normal: {
+                           show: true,
+                           position: 'insideTop'
+                       }
+                   },
+                   data: used_list
+               },
+               {
+                   name: '库房中',
+                   color: '#7FFF00',
+                   type: 'bar',
+                   stack: '总量',
+                   label: {
+                       normal: {
+                           show: true,
+                           position: 'insideTop'
+                       }
+                   },
+                   data: free_list
+               }, {
+                   name: '故障中',
+                   color: '#FF0000',
+                   type: 'bar',
+                   stack: '总量',
+                   label: {
+                       normal: {
+                           show: true,
+                           position: 'insideTop'
+                       }
+                   },
+                   data: trouble_list
+               }
+           ]
+       };
+       myChart.setOption(option);
+       window.onresize = myChart.resize;
+   });
 });

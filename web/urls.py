@@ -33,8 +33,10 @@ urlpatterns = [
     url(r'^get_info/$', views.get_info, name='get_info'),
     url(r'^count/$', count.Info, name='Info'),
     url(r'^count/getdata/$', count.Getdata, name='Getdata'),
+    # 首页库存状态一览图数据
     url(r'^echart/getdata/$', echartdata.getdata1),
+    url(r'^echart/getdata2/$',echartdata.getdata2),
     # 故障接口
-    url(r'show_assets_trouble/$', Trouble.show_assets_trouble),
-    url(r'trouble/$', Trouble.trouble_note),
+    url(r'show_assets_trouble/$', Trouble.show_assets_trouble, name='show_assets_trouble'),
+    url(r'trouble/$', Trouble.trouble_note, name='trouble'),
 ]
