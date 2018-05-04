@@ -30,13 +30,14 @@ def Getdata(request):
         datalist = []
         data_dic = {}
         for res_data in details.values():
-            if res_data['assets_id'] not in data_dic.keys():
-                data_dic[res_data['assets_id']] = {}
-                data_dic[res_data['assets_id']]['create_type'] = res_data['create_type']
-                data_dic[res_data['assets_id']]['create_date'] = res_data['create_date'].strftime('%Y-%m-%d')
-            else:
-                data_dic[res_data['assets_id']]['create_type'] = res_data['create_type']
-                data_dic[res_data['assets_id']]['create_date'] = res_data['create_date'].strftime('%Y-%m-%d')
+            if models.Asset.objects.filter(assets_id=res_data['assets_id']):
+                if res_data['assets_id'] not in data_dic.keys():
+                    data_dic[res_data['assets_id']] = {}
+                    data_dic[res_data['assets_id']]['create_type'] = res_data['create_type']
+                    data_dic[res_data['assets_id']]['create_date'] = res_data['create_date'].strftime('%Y-%m-%d')
+                else:
+                    data_dic[res_data['assets_id']]['create_type'] = res_data['create_type']
+                    data_dic[res_data['assets_id']]['create_date'] = res_data['create_date'].strftime('%Y-%m-%d')
         num = 1
         for d in data_dic.keys():
             if data_dic[d]['create_type'] == "入库":
