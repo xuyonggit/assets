@@ -221,7 +221,8 @@ $(function(){
             {field: 'outdate',title: '借出时间'},
             {field: 'indate', title: '归还时间'}
         ]
-    })
+    });
+    //个人名下资产展示
     $("#searchdata").on('submit', function (event) {
         event.preventDefault();
         var ff = $('#searchdata').serialize();
@@ -251,7 +252,7 @@ $(function(){
                     cache: false,
                     columns:[
                         {field: 'id',title: '#序号'},
-                        {field: 'assets_name',title: '资产名称'},
+                        {field: 'assets_name',title: '资产名称', sortable: true},
                         {field: 'assets_id',title: '资产编号'},
                         {field: 'outdate',title: '借用时间'}
                     ]
