@@ -14,32 +14,30 @@ def show_assets_trouble(request):
     username = request.user.username
     if request.method == 'POST':
         Temp_data = []
-        res_data = {}
-        J_data = models.Asset.objects.all()
-        T_data = models.Asset_trouble.objects.all()
+        J_data = models.Asset.objects.filter(asset_status=3)
         for data in J_data.values():
-            if data['asset_status'] == 3:
-                res_data['assets_name'] = data['assets_name']
-                res_data['buying_price'] = float(data['buying_price'])
-                res_data['assets_id'] = '<a href="/assets/get_info?assets_id={}">{}</a>'.format(data['assets_id'], data['assets_id'])
-                t_data = models.Asset_trouble.objects.get(assets_id=data['assets_id'])
+            res_data = {}
+            res_data['assets_name'] = data['assets_name']
+            res_data['buying_price'] = float(data['buying_price'])
+            res_data['assets_id'] = '<a href="/assets/get_info?assets_id={}">{}</a>'.format(data['assets_id'], data['assets_id'])
+            t_data = models.Asset_trouble.objects.filter(assets_id=data['assets_id'])
+            if t_data:
                 # 获取责任人及部门
-                if t_data.trouble_department and t_data.trouble_people:
-                    res_data['trouble_people'] = "{}-{}".format(t_data.trouble_department, t_data.trouble_people)
-                elif t_data.trouble_department and not t_data.trouble_people:
-                    res_data['trouble_people'] = t_data.trouble_department
-                elif t_data.trouble_people and not t_data.trouble_department:
-                    res_data['trouble_people'] = t_data.trouble_department
+                if t_data.values()[0]['trouble_department'] and t_data.values()[0]['trouble_people']:
+                    res_data['trouble_people'] = "{}-{}".format(t_data.values()[0]['trouble_department'], t_data.values()[0]['trouble_people'])
+                elif t_data.values()[0]['trouble_department'] and not t_data.values()[0]['trouble_people']:
+                    res_data['trouble_people'] = t_data.values()[0]['trouble_department']
+                elif t_data.values()[0]['trouble_people'] and not t_data.values()[0]['trouble_department']:
+                    res_data['trouble_people'] = t_data.values()[0]['trouble_department']
                 else:
                     res_data['trouble_people'] = "无"
                 # 获取故障详情
-                res_data['trouble_info'] = t_data.trouble_info
+                res_data['trouble_info'] = t_data.values()[0]['trouble_info']
                 # 获取故障日期
-                if t_data.trouble_date != None:
-                    res_data['trouble_date'] = t_data.trouble_date.strftime('%Y-%m-%d')
+                if t_data.values()[0]['trouble_date'] != None:
+                    res_data['trouble_date'] = t_data.values()[0]['trouble_date'].strftime('%Y-%m-%d')
                 else:
                     res_data['trouble_date'] = "-"
-
                 Temp_data.append(res_data)
         return HttpResponse({json.dumps(Temp_data)})
     else:
