@@ -24,6 +24,7 @@ class Asset_detial(models.Model):
     create_type = models.CharField(max_length=255, default=None)    # 类型
     use_department = models.CharField(max_length=255, default=None)     # 使用部门
     use_people = models.CharField(max_length=255, default=None)     # 使用人
+    operuser = models.CharField(max_length=255, default=None)       # 操作人
 
     def __unicode__(self):
         return self.assets_id

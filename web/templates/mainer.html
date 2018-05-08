@@ -142,7 +142,9 @@
                         <ul class="nav nav-second-level">
                             <li><a href="{% url 'Out_assets_repo' %}">资产出库</a></li>
                             <li><a href="{% url 'In_assets_repo' %}">资产入库</a></li>
-                            <li><a href="{% url 'In_repo' %}">直接入库</a></li>
+                            {% if user.username == 'xuyong' %}
+                                <li><a href="{% url 'In_repo' %}">直接入库</a></li>
+                            {% endif %}
                             <li><a href="{% url 'trouble' %}">故障登记</a></li>
                         </ul>
                     </li>

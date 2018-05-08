@@ -9,5 +9,17 @@
             <div id="echart" class="ect-left"></div>
             <div id="echart2" class="ect-right"></div>
         </div>
+        <div class="row">
+            <div class="full-right">
+                <ol class="breadcrumb"><h1>最近资产变更记录</h1></ol>
+                {% for data in dynamic_data %}
+                    <p>&nbsp;&nbsp;<font color="#8b0000">{{ data.create_type }}</font> 操作 保管人：
+                        <font color="#8b0000">{{ data.use_department }}-{{ data.use_people }}</font>
+                        日期：<font color="#8b0000">{{ data.create_date }}</font> 设备:
+                        <a href="/assets/get_info?assets_id={{ data.assets_id }}">{{ data.assets_id }}</a>
+                        操作人：<font color="#8b0000">{{ data.operuser }}</font></p>
+                {% endfor %}
+            </div>
+        </div>
     </div>
 {% endblock %}

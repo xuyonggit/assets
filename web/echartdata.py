@@ -23,7 +23,7 @@ def getdata1(request):
     return HttpResponse(json.dumps(data_list))
 
 
-#@login_required
+@login_required
 @csrf_exempt
 def getdata2(request):
     if request.method == 'POST':

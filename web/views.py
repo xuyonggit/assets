@@ -12,7 +12,12 @@ import datetime
 @login_required
 def index(request):
     username = request.user.username
-    return render(request, 'index.html', {'username': username})
+    dynamic_data = []
+    datainfo = models.Asset_detial.objects.all().order_by('-id')[:10]
+    for i in datainfo.values():
+        i['create_date'] = i['create_date'].strftime('%Y-%m-%d')
+        dynamic_data.append(i)
+    return render(request, 'index.html', {'username': username, 'dynamic_data': dynamic_data})
 
 
 # 所有资产展示
@@ -108,6 +113,7 @@ def In_assets_repo(request, aid="", aid2=""):
             create_date = request.POST['create_date']
             use_department = models.department.objects.get(id=request.POST['use_department'])
             create_type = '入库'
+            username = request.user.username
             # 更新状态
             status_data = models.Asset.objects.get(assets_id=asset_id)
             if status_data.asset_status == 2:
@@ -128,7 +134,8 @@ def In_assets_repo(request, aid="", aid2=""):
                     assets_id=asset_id,
                     create_date=create_date,
                     use_department=use_department,
-                    create_type=create_type
+                    create_type=create_type,
+                    operuser=username
                 )
 
                 return HttpResponse({json.dumps({'status': 0})})
@@ -183,6 +190,7 @@ def Out_assets_repo(request, aid="", aid2=""):
             create_date = request.POST['create_date']
             use_department = models.department.objects.get(id=request.POST['use_department'])
             create_type = '出库'
+            username = request.user.username
             # 更新状态
             status_data = models.Asset.objects.get(assets_id=asset_id)
             if status_data.asset_status == 1:
@@ -201,7 +209,8 @@ def Out_assets_repo(request, aid="", aid2=""):
                     assets_id=asset_id,
                     create_date=create_date,
                     use_department=use_department,
-                    create_type=create_type
+                    create_type=create_type,
+                    operuser=username
                 )
 
                 return HttpResponse({json.dumps({'status': 0})})
