@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-from . import views, count, account, echartdata, Trouble
+from . import views, count, account, echartdata, Trouble, Export_excel
 from django.contrib.auth.views import logout
 urlpatterns = [
     url(r'^$', views.index, name='index'),
@@ -39,4 +39,6 @@ urlpatterns = [
     # 故障接口
     url(r'show_assets_trouble/$', Trouble.show_assets_trouble, name='show_assets_trouble'),
     url(r'trouble/$', Trouble.trouble_note, name='trouble'),
+    # 资产盘点
+    url(r'assets_export/$', Export_excel.excel_export, name='export_excel'),
 ]
