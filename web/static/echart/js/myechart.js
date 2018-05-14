@@ -1,5 +1,6 @@
 $(function(){
     var myChart = echarts.init(document.getElementById('echart'));
+    var myChart2 = echarts.init(document.getElementById('echart2'));
     $.ajax({
         //提交数据的类型 POST GET
         type: 'POST',
@@ -67,12 +68,9 @@ $(function(){
 
         // 使用刚指定的配置项和数据显示图表。
         myChart.setOption(option);
-        window.onresize = myChart.resize;
-        })
-});
-$(function () {
-   var myChart = echarts.init(document.getElementById('echart2'));
-   $.ajax({
+
+        });
+    $.ajax({
         //提交数据的类型 POST GET
         type: 'POST',
         url: "/assets/echart/getdata2/",
@@ -92,7 +90,7 @@ $(function () {
            free_list.push(result[i]['free_num']);
            trouble_list.push(result[i]['trouble_num'])
             }
-       myChart.hideLoading();
+       myChart2.hideLoading();
        var option = {
            title: {
                     text: '各种类别状态一览',
@@ -161,7 +159,10 @@ $(function () {
                }
            ]
        };
-       myChart.setOption(option);
-       window.onresize = myChart.resize;
+       myChart2.setOption(option);
    });
+    window.onresize = function () {
+        myChart.resize();
+        myChart2.resize()
+    };
 });
