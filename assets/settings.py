@@ -84,7 +84,7 @@ WSGI_APPLICATION = 'assets.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'fixed_assets',
+        'NAME': 'fixed_assets_test',
         'USER': 'django',
         'PASSWORD': 'django',
         'HOST': 'mysql.local.com',
