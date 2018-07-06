@@ -35,10 +35,12 @@ urlpatterns = [
     url(r'^count/getdata/$', count.Getdata, name='Getdata'),
     # 首页库存状态一览图数据
     url(r'^echart/getdata/$', echartdata.getdata1),
-    url(r'^echart/getdata2/$',echartdata.getdata2),
+    url(r'^echart/getdata2/$', echartdata.getdata2),
     # 故障接口
     url(r'show_assets_trouble/$', Trouble.show_assets_trouble, name='show_assets_trouble'),
     url(r'trouble/$', Trouble.trouble_note, name='trouble'),
     # 资产盘点
     url(r'assets_export/$', Export_excel.excel_export, name='export_excel'),
+    # 资产录入接口
+    url(r'assets_add/$', count.Info, name='Info'),
 ]
