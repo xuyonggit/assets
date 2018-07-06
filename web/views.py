@@ -195,6 +195,8 @@ def Out_assets_repo(request, aid="", aid2=""):
             status_data = models.Asset.objects.get(assets_id=asset_id)
             if status_data.asset_status == 1:
                 return HttpResponse({json.dumps({'status': 2, 'errormessage': u'出库失败！<br>该设备已被其他人使用,如有疑问，请联系管理员'})})
+            elif status_data.asset_status == 3:
+                return HttpResponse({json.dumps({'status': 3, 'errormessage': u'出库失败！<br>该设备为故障设备,如需使用,请确认设备可正常使用'})})
             else:
                 date_data = models.Asset_detial.objects.filter(assets_id=asset_id, create_type='入库').order_by('-create_date')[:1]
                 if date_data:

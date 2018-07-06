@@ -51,6 +51,8 @@ $(function(){
                     var aa = '<span style="color:black">使用中</span>';
                 }else if(value == "2"){
                     var aa = '<span style="color:green">闲置中</span>';
+                }else if(value == "3") {
+                    var aa = '<span style="color:salmon">故障</span>';
                 }else{
                     var aa = '<span style="color:red">未知</span>'
                 }
