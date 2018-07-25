@@ -343,4 +343,34 @@ $(function(){
             }
         })
     });
+    //新资产登记
+    $('#create_new_assets').on('submit', function (event) {
+        // 阻止元素发生默认的行为，此处用来阻止对表单的提交
+        event.preventDefault();
+        var formData = $('#create_new_assets').serialize();
+        console.log(formData);
+        // jQuery Ajax 上传文件，关键在于设置：processData 和 contentType
+        $.ajax({
+            type: 'POST',
+            url: '/assets/assets_add/',
+            cache: false,
+            data: formData,
+            // 告诉 jQuery 不要去处理发送的数据
+            processData: false,
+            dataType:'json',
+            // 告诉 jQuery 不要去设置 Content-Type 请求头
+            // 因为这里是由 <form> 表单构造的 FormData 对象，且已经声明了属性 enctype="multipart/form-data"，所以设置为 false
+            contentType: "application/x-www-form-urlencoded; charset=UTF-8"
+        }).done(function (res) {
+            var data = res.status;
+            if (data==0){
+                var txt="录入成功！\n" + "<h4>资产ID为：<a href='http://" + window.location.host
+                    + "/assets/get_info/?assets_id=" + res.assets_id + "'>" + res.assets_id + "</a></h4>";
+                window.wxc.xcConfirm(txt,window.wxc.xcConfirm.typeEnum.success);
+            }else{
+                txt = res.errormessage;
+                window.wxc.xcConfirm(txt,window.wxc.xcConfirm.typeEnum.error);
+            }
+        });
+    });
 });

@@ -139,3 +139,35 @@ class Trouble(forms.Form):
             attrs={'class': 'form-control'}
         )
     )
+
+
+class Add(forms.Form):
+    assets_name = forms.CharField(
+        label="资产名称",
+        widget=forms.TextInput(attrs={'class': 'form-control'}),
+    )
+    assets_brand = forms.CharField(
+        required=False,
+        label="资产品牌",
+        widget=forms.TextInput(attrs={'class': 'form-control'}),
+    )
+    assets_version = forms.CharField(
+        required=False,
+        label="资产型号",
+        widget=forms.TextInput(attrs={'class': 'form-control'})
+    )
+    buying_price = forms.FloatField(
+        required=False,
+        label="购买价格",
+        widget=forms.TextInput(attrs={'class': 'form-control'})
+    )
+    buying_date = forms.DateField(
+        required=False,
+        label="购买日期",
+        widget=forms.DateInput(attrs={'class': 'form-control', 'type': 'date'})
+    )
+    notes = forms.CharField(
+        required=False,
+        label="备注",
+        widget=forms.Textarea(attrs={'class': 'form-control'})
+    )
