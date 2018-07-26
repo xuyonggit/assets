@@ -21,7 +21,7 @@
                                         <li><h3>{{ department }}</h3>
                                             <ul>
                                                 {% for name,data in value.items %}
-                                                <li>{{ name }}<br>
+                                                    <li><a href="{% url "Info" %}{{ name }}">{{ name }}</a><br>
                                                     名下资产：{{ data.assets_count }}<br>
                                                     损坏资产：{{ data.trouble_count }}</li>
                                                 {% endfor %}
