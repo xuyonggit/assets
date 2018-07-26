@@ -9,14 +9,15 @@ import json
 
 
 @login_required
-def Info(request):
+@csrf_exempt
+def Info(request, name=""):
     username = request.user.username
     if request.method == 'POST':
         uname = request.POST.get('uname', '')
         datadic = {'uname': uname, 'status': 1}
         return HttpResponse(json.dumps(datadic))
     else:
-        return render(request, 'count.html', {'username': username})
+        return render(request, 'count.html', {'username': username, 'name': name})
 
 
 @csrf_exempt

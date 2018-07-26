@@ -7,7 +7,11 @@
             <form id="searchdata" role="form" >
                 {% csrf_token %}
                 <div class="form-group input-group">
-                    <input name="uname" type="text" class="form-control input-lg" placeholder="请输入员工姓名">
+                    {% if name %}
+                        <input name="uname" type="text" class="form-control input-lg" placeholder="{{ name }}" value="{{ name }}">
+                    {% else %}
+                        <input name="uname" type="text" class="form-control input-lg" placeholder="请输入员工姓名">
+                    {% endif %}
                     <span class="input-group-btn">
                         <button id="get_people_assets" type="submit" class="btn btn-warning input-lg">搜索</button>
                     </span>

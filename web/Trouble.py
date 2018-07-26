@@ -74,7 +74,18 @@ def trouble_note(request):
                     trouble_info=Troubles_info,
                     operator_user=username
                 )
-
+                if trouble_people and trouble_department:
+                    # 更新资产统计表数据
+                    data_count = models.baseall.objects.get(pname=trouble_people)
+                    if data_count:
+                        data_count.trouble_count += 1
+                        data_count.save()
+                    else:
+                        models.baseall.objects.create(
+                            pname=trouble_people,
+                            department_name=trouble_department,
+                            trouble_count=1
+                        )
                 return HttpResponse({json.dumps({'status': 0})})
         else:
             return HttpResponse({json.dumps({'status': 2, 'errormessage': u'输入验证错误，请重试'})})

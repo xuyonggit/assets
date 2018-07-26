@@ -373,4 +373,12 @@ $(function(){
             }
         });
     });
+    //组织架构
+    $('#basicall').orgChart({
+        container: $("#main"),
+        interactive: true,
+        stack: true,
+        depth: 4,
+        showLevels: 2
+    });
 });

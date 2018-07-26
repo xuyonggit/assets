@@ -1,0 +1,41 @@
+{% extends "mainer.html" %}
+{% block data %}
+    <div class="header">
+        <h1 class="page-header">
+            组织架构
+        </h1>
+    </div>
+    <div id="page-inner">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div id="main">
+                            <ul id="basicall" class="hide">
+                                <li><h1>金桐</h1>
+                                    <ul>
+                                    {% for Tixi,values in dataDic.items %}
+                                        <li><h3>{{ Tixi }}</h3>
+                                        <ul>
+                                        {% for department,value in values.items %}
+                                        <li><h3>{{ department }}</h3>
+                                            <ul>
+                                                {% for name,data in value.items %}
+                                                <li>{{ name }}<br>
+                                                    名下资产：{{ data.assets_count }}<br>
+                                                    损坏资产：{{ data.trouble_count }}</li>
+                                                {% endfor %}
+                                            </ul></li>
+                                        {% endfor %}
+                                        </ul></li>
+                                    {% endfor %}
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

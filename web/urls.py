@@ -16,6 +16,7 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from . import views, count, account, echartdata, Trouble, Export_excel, Add
+from . import Baseall
 from django.contrib.auth.views import logout
 urlpatterns = [
     url(r'^$', views.index, name='index'),
@@ -30,9 +31,12 @@ urlpatterns = [
     url(r'^out_assets_repo/$', views.Out_assets_repo, name='Out_assets_repo'),
     url(r'^out_assets_repo/GT-(?P<aid>\d+)/$', views.Out_assets_repo, name='Out_assets_repo'),
     url(r'^out_assets_repo/GT-(?P<aid>\d+)-(?P<aid2>\d+)/$', views.Out_assets_repo, name='Out_assets_repo'),
+    # 详情查询
     url(r'^get_info/$', views.get_info, name='get_info'),
+    # 个人资产查询接口
     url(r'^count/$', count.Info, name='Info'),
     url(r'^count/getdata/$', count.Getdata, name='Getdata'),
+    url(r'^count/(?P<name>\w+)/$', count.Info, name='Info'),
     # 首页库存状态一览图数据
     url(r'^echart/getdata/$', echartdata.getdata1),
     url(r'^echart/getdata2/$', echartdata.getdata2),
@@ -42,5 +46,7 @@ urlpatterns = [
     # 资产盘点
     url(r'assets_export/$', Export_excel.excel_export, name='export_excel'),
     # 资产录入接口
-    url(r'assets_add/$',Add.add , name='Add'),
+    url(r'assets_add/$', Add.add, name='Add'),
+    # 组织架构
+    url(r'assets_baseall/$', Baseall.baseall, name='Baseall'),
 ]
