@@ -138,7 +138,7 @@ def In_assets_repo(request, aid="", aid2=""):
                     operuser=username
                 )
                 # 更新资产统计表数据
-                data_count = models.baseall.objects.filter(pname=use_people)
+                data_count = models.baseall.objects.get(pname=use_people)
                 data_count.assets_count -= 1
                 data_count.save()
                 return HttpResponse({json.dumps({'status': 0})})
@@ -218,7 +218,7 @@ def Out_assets_repo(request, aid="", aid2=""):
                     operuser=username
                 )
                 # 更新资产统计表数据
-                data_count = models.baseall.objects.filter(pname=use_people)
+                data_count = models.baseall.objects.get(pname=use_people)
                 if data_count:
                     data_count.assets_count += 1
                     data_count.save()

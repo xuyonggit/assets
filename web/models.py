@@ -47,8 +47,8 @@ class department(models.Model):
     Tixi_name = models.CharField(u'体系名称', max_length=255, null=False, default=None)
     department_name = models.CharField(u'部门名称', max_length=255, null=False, default=None)
 
-    # def __str__(self):
-    #     return self.department_name
+    def __str__(self):
+        return self.department_name
 
 
 class baseall(models.Model):
