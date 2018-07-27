@@ -15,6 +15,8 @@ def baseall(request):
         dataDic[_T][_D] = {}
     data_data = models.baseall.objects.all()
     for d in data_data.values():
+        if d['assets_count'] == 0 and d['trouble_count'] == 0:
+            continue
         del d['id']
         department_name = d.pop("department_name")
         for tixi,values in dataDic.items():

@@ -138,9 +138,9 @@ def In_assets_repo(request, aid="", aid2=""):
                     operuser=username
                 )
                 # 更新资产统计表数据
-                data_count = models.baseall.objects.get(pname=use_people)
-                data_count.assets_count -= 1
-                data_count.save()
+                data_count = models.baseall.objects.filter(pname=use_people)
+                new_count = data_count.values()[0]['assets_count'] - 1
+                data_count.update(assets_count=new_count)
                 return HttpResponse({json.dumps({'status': 0})})
         else:
             return HttpResponse({json.dumps({'status': 1, 'errormessage': u'入库失败！'})})
@@ -218,10 +218,10 @@ def Out_assets_repo(request, aid="", aid2=""):
                     operuser=username
                 )
                 # 更新资产统计表数据
-                data_count = models.baseall.objects.get(pname=use_people)
-                if data_count:
-                    data_count.assets_count += 1
-                    data_count.save()
+                data_count = models.baseall.objects.filter(pname=use_people)
+                if len(data_count) == 1:
+                    new_count = data_count.values()[0]['assets_count'] + 1
+                    data_count.update(assets_count=new_count)
                 else:
                     models.baseall.objects.create(
                         pname=use_people,

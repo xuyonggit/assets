@@ -76,10 +76,10 @@ def trouble_note(request):
                 )
                 if trouble_people and trouble_department:
                     # 更新资产统计表数据
-                    data_count = models.baseall.objects.get(pname=trouble_people)
-                    if data_count:
-                        data_count.trouble_count += 1
-                        data_count.save()
+                    data_count = models.baseall.objects.filter(pname=trouble_people)
+                    if len(data_count) == 1:
+                        new_count = data_count.values()[0]['trouble_count'] + 1
+                        data_count.update(assets_count=new_count)
                     else:
                         models.baseall.objects.create(
                             pname=trouble_people,
