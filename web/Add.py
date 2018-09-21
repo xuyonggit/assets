@@ -13,10 +13,14 @@ def add(request):
     if request.method == 'POST':
         form = forms.Add(request.POST)
         if form.is_valid():
+            print(request.POST)
             assets_name = request.POST['assets_name']
             assets_brand = request.POST['assets_brand']
             assets_version = request.POST['assets_version']
-            buying_price = str(request.POST['buying_price'])
+            if request.POST['buying_price']:
+                buying_price = request.POST['buying_price']
+            else:
+                buying_price = 0
             if request.POST['buying_date']:
                 buying_date = str(request.POST['buying_date'])
             else:
