@@ -28,6 +28,8 @@ urlpatterns = [
     url(r'^in_assets_repo/$', views.In_assets_repo, name='In_assets_repo'),
     url(r'^in_assets_repo/GT-(?P<aid>\d+)/$', views.In_assets_repo, name='In_assets_repo'),
     url(r'^in_assets_repo/GT-(?P<aid>\d+)-(?P<aid2>\d+)/$', views.In_assets_repo, name='In_assets_repo'),
+    # 特殊编号入库
+    url(r'^in_assets_repo/GT-(?P<aid>\d+)_(?P<aid2>\d+)/$', views.In_assets_repo, name='In_assets_repo'),
     url(r'^out_assets_repo/$', views.Out_assets_repo, name='Out_assets_repo'),
     url(r'^out_assets_repo/GT-(?P<aid>\d+)/$', views.Out_assets_repo, name='Out_assets_repo'),
     url(r'^out_assets_repo/GT-(?P<aid>\d+)-(?P<aid2>\d+)/$', views.Out_assets_repo, name='Out_assets_repo'),
