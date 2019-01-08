@@ -13,7 +13,7 @@ import datetime
 def index(request):
     username = request.user.username
     dynamic_data = []
-    datainfo = models.Asset_detial.objects.all().order_by('-id')[:10]
+    datainfo = models.Asset_detial.objects.all().order_by('-id')[:20]
     for i in datainfo.values():
         i['create_date'] = i['create_date'].strftime('%Y-%m-%d')
         dynamic_data.append(i)
